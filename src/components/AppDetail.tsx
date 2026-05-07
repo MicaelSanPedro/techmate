@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -34,17 +34,39 @@ function getPackageManagerLabel(key: string): string {
 }
 
 export function AppDetail({ app, isOpen, onClose }: AppDetailProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollPosRef = useRef<number>(0);
+
+  // Lock body scroll on open
   useEffect(() => {
     if (isOpen) {
+      scrollPosRef.current = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPosRef.current}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
       document.body.style.overflow = "hidden";
+      document.body.style.width = "100%";
     } else {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
       document.body.style.overflow = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollPosRef.current);
     }
     return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
       document.body.style.overflow = "";
+      document.body.style.width = "";
     };
   }, [isOpen]);
 
+  // ESC to close
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -59,32 +81,30 @@ export function AppDetail({ app, isOpen, onClose }: AppDetailProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - sem backdrop-blur no mobile para nao travar scroll */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-black/60 sm:backdrop-blur-sm"
           />
 
           {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 100 }}
-            transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
-            className="fixed inset-x-0 bottom-0 z-[70] sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:bottom-auto sm:max-w-2xl sm:w-full sm:max-h-[85vh] sm:rounded-2xl"
-            style={{ touchAction: 'none' }}
+          <div
+            className="fixed z-[70] inset-x-0 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:bottom-auto sm:max-w-2xl sm:w-full"
+            style={{ maxHeight: "92vh" }}
           >
-            <div className="h-full max-h-[90vh] sm:max-h-[85vh] bg-[#0d1412]/95 backdrop-blur-3xl rounded-t-3xl sm:rounded-2xl border border-white/10 border-b-0 sm:border-b border-green-500/10 shadow-2xl shadow-green-500/10 flex flex-col overflow-hidden">
-
+            <div
+              className="flex flex-col rounded-t-3xl sm:rounded-2xl border border-white/10 border-b-0 sm:border-b border-green-500/10 shadow-2xl shadow-green-500/10 bg-[#0d1412] sm:bg-[#0d1412]/95"
+              style={{ height: "92vh", maxHeight: "92vh" }}
+            >
               {/* Mobile drag handle */}
-              <div className="sm:hidden flex justify-center pt-3 pb-1">
+              <div className="sm:hidden flex justify-center pt-3 pb-1 shrink-0">
                 <div className="w-10 h-1 rounded-full bg-white/20" />
               </div>
 
-              {/* Header */}
+              {/* Header - fixed, nao rola */}
               <div className="p-5 sm:p-6 border-b border-white/[0.06] shrink-0">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
@@ -137,17 +157,14 @@ export function AppDetail({ app, isOpen, onClose }: AppDetailProps) {
                 </div>
               </div>
 
-              {/* Scrollable Content */}
+              {/* Scrollable Content - ocupa todo espaco restante */}
               <div
-                className="flex-1 overflow-y-auto p-5 sm:p-6 space-y-6"
+                ref={scrollRef}
+                className="flex-1 overflow-y-auto overscroll-contain p-5 sm:p-6 space-y-6"
                 style={{
-                  WebkitOverflowScrolling: 'touch',
-                  overscrollBehavior: 'contain',
-                  touchAction: 'pan-y',
+                  WebkitOverflowScrolling: "touch",
                   minHeight: 0,
                 }}
-                onTouchStart={(e) => e.stopPropagation()}
-                onTouchMove={(e) => e.stopPropagation()}
               >
                 {/* Install Commands */}
                 <div>
@@ -204,7 +221,7 @@ export function AppDetail({ app, isOpen, onClose }: AppDetailProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
