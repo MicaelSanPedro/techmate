@@ -8,7 +8,7 @@ import {
   Search,
   BadgeCheck,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface NavbarProps {
   activeTab: string;
@@ -23,8 +23,17 @@ export function Navbar({ activeTab, setActiveTab, searchQuery, setSearchQuery }:
   const [mobileSearch, setMobileSearch] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -51,11 +60,8 @@ export function Navbar({ activeTab, setActiveTab, searchQuery, setSearchQuery }:
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-500 ${
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 glass-nav transition-shadow duration-300 ${
           scrolled ? "shadow-lg shadow-green-500/10" : ""
         }`}
       >
@@ -66,10 +72,15 @@ export function Navbar({ activeTab, setActiveTab, searchQuery, setSearchQuery }:
               onClick={() => handleNavClick("home")}
               className="flex items-center gap-2.5 group"
             >
-              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-500/25 group-hover:shadow-green-500/40 transition-shadow duration-300">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v2h-2zm0 4h2v6h-2z"/>
-                </svg>
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden shadow-lg shadow-green-500/25 group-hover:shadow-green-500/40 transition-shadow duration-300">
+                <Image
+                  src="/logo.webp"
+                  alt="LinuxZeiro"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                  priority
+                />
               </div>
               <span className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-1.5">
                 <span className="text-white">Linux</span>
@@ -167,7 +178,7 @@ export function Navbar({ activeTab, setActiveTab, searchQuery, setSearchQuery }:
             )}
           </AnimatePresence>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
