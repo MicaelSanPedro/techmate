@@ -101,34 +101,8 @@ export function AppDetail({ app, isOpen, onClose }: AppDetailProps) {
             >
               {/* ── Terminal Title Bar ── */}
               <div className="shrink-0 bg-[#1a1a1a] border-b border-white/[0.06] px-4 py-3 flex items-center gap-3">
-                {/* Window buttons */}
-                <div className="flex items-center gap-2">
-                  {/* Red X - Close */}
-                  <button
-                    onClick={onClose}
-                    className="w-3.5 h-3.5 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all flex items-center justify-center group/x"
-                    title="Fechar (Esc)"
-                  >
-                    <Minus
-                      className="w-2 h-2 text-[#4a0002] opacity-0 group-hover/x:opacity-100 transition-opacity"
-                      style={{ strokeWidth: 4 }}
-                    />
-                  </button>
-                  {/* Yellow - Minimize (decorative) */}
-                  <button className="w-3.5 h-3.5 rounded-full bg-[#febc2e] hover:brightness-110 transition-all flex items-center justify-center group/m">
-                    <Minus
-                      className="w-2 h-2 text-[#995700] opacity-0 group-hover/m:opacity-100 transition-opacity"
-                      style={{ strokeWidth: 4 }}
-                    />
-                  </button>
-                  {/* Green - Maximize (decorative) */}
-                  <button className="w-3.5 h-3.5 rounded-full bg-[#28c840] hover:brightness-110 transition-all flex items-center justify-center group/g">
-                    <Square
-                      className="w-1.5 h-1.5 text-[#006500] opacity-0 group-hover/g:opacity-100 transition-opacity"
-                      style={{ strokeWidth: 4 }}
-                    />
-                  </button>
-                </div>
+                {/* Spacer to balance buttons on the right */}
+                <div className="w-[68px]" />
 
                 {/* Terminal title */}
                 <div className="flex-1 text-center">
@@ -143,8 +117,33 @@ export function AppDetail({ app, isOpen, onClose }: AppDetailProps) {
                   </span>
                 </div>
 
-                {/* Spacer to balance dots */}
-                <div className="w-[54px]" />
+                {/* Window buttons - right side */}
+                <div className="flex items-center gap-2.5">
+                  {/* Green - Maximize (decorative) */}
+                  <button className="w-[18px] h-[18px] rounded-full bg-[#28c840] hover:brightness-110 transition-all flex items-center justify-center group/g">
+                    <Square
+                      className="w-2 h-2 text-[#006500] opacity-0 group-hover/g:opacity-100 transition-opacity"
+                      style={{ strokeWidth: 4 }}
+                    />
+                  </button>
+                  {/* Yellow - Minimize (decorative) */}
+                  <button className="w-[18px] h-[18px] rounded-full bg-[#febc2e] hover:brightness-110 transition-all flex items-center justify-center group/m">
+                    <Minus
+                      className="w-2.5 h-2.5 text-[#995700] opacity-0 group-hover/m:opacity-100 transition-opacity"
+                      style={{ strokeWidth: 4 }}
+                    />
+                  </button>
+                  {/* Red X - Close */}
+                  <button
+                    onClick={onClose}
+                    className="w-[18px] h-[18px] rounded-full bg-[#ff5f57] hover:brightness-125 transition-all flex items-center justify-center group/x"
+                    title="Fechar (Esc)"
+                  >
+                    <X
+                      className="w-2.5 h-2.5 text-[#4a0002] opacity-0 group-hover/x:opacity-100 transition-opacity"
+                    />
+                  </button>
+                </div>
               </div>
 
               {/* ── Terminal Body ── */}
