@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   Terminal,
   ChevronRight,
@@ -119,10 +118,7 @@ function HeroSection({
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+        <div
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-6 sm:mb-8"
         >
           <Terminal className="w-4 h-4 text-amber-400" />
@@ -130,48 +126,36 @@ function HeroSection({
             Comandos prontos para copiar
           </span>
           <Zap className="w-4 h-4 text-yellow-400" />
-        </motion.div>
+        </div>
 
         {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+        <h1
           className="text-4xl sm:text-5xl md:text-7xl font-black leading-[0.95] tracking-tight mb-4 sm:mb-6"
         >
           <span className="text-white">Seu guia definitivo para </span>
           <br />
           <span className="shimmer-text">apps Linux</span>
-        </motion.h1>
+        </h1>
 
         {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+        <p
           className="text-base sm:text-lg md:text-xl text-white/40 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed"
         >
           Encontre os melhores aplicativos para sua distribuição.{" "}
           <span className="text-amber-400/70">Comandos prontos para copiar</span>,{" "}
           <span className="text-yellow-400/70">observações</span> e{" "}
           <span className="text-orange-400/70">dicas úteis</span>.
-        </motion.p>
+        </p>
 
         {/* Terminal animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+        <div
           className="mb-8 sm:mb-10"
         >
           <HeroTerminal />
-        </motion.div>
+        </div>
 
         {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+        <div
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
         >
           <Button
@@ -193,7 +177,7 @@ function HeroSection({
             <Monitor className="w-4 h-4 mr-2" />
             Ver Tutoriais
           </Button>
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom fade */}
@@ -212,10 +196,7 @@ function FeaturedAppsSection({ onAppClick }: { onAppClick: (app: App) => void })
   return (
     <section className="relative py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10 sm:mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-4">
@@ -230,7 +211,7 @@ function FeaturedAppsSection({ onAppClick }: { onAppClick: (app: App) => void })
           <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
             Os aplicativos mais procurados pela comunidade Linux
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {featured.map((app, i) => (
@@ -257,10 +238,7 @@ function CategoriesSection({ onCategoryClick }: { onCategoryClick: (cat: string)
   return (
     <section className="relative py-16 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10 sm:mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-4">
@@ -275,7 +253,7 @@ function CategoriesSection({ onCategoryClick }: { onCategoryClick: (cat: string)
           <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
             Explore apps por área de interesse
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
           {displayCategories.map((cat) => (
@@ -313,12 +291,8 @@ function StatsSection() {
         <div className="glass-card p-6 sm:p-8 rounded-2xl">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
             {stats.map((stat, i) => (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
                 className="text-center"
               >
                 <stat.icon className={`w-6 h-6 ${stat.color} mx-auto mb-3`} />
@@ -326,7 +300,7 @@ function StatsSection() {
                   {stat.value}
                 </p>
                 <p className="text-xs sm:text-sm text-white/40">{stat.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -367,10 +341,7 @@ function HowItWorksSection() {
   return (
     <section id="como-funciona" className="relative py-16 sm:py-24">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+        <div
           className="text-center mb-10 sm:mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-4">
@@ -385,16 +356,12 @@ function HowItWorksSection() {
           <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
             Três passos simples para instalar qualquer app
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
           {steps.map((item, i) => (
-            <motion.div
+            <div
               key={item.step}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
               className="relative group"
             >
               <div className="glass-card p-6 sm:p-8 rounded-2xl text-center card-glow-hover h-full">
@@ -418,7 +385,7 @@ function HowItWorksSection() {
                   <ChevronRight className="w-6 h-6 text-amber-500/30" />
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -458,9 +425,7 @@ function AppsView({
     <section className="relative py-8 sm:py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
           className="text-center mb-8 sm:mb-10"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
@@ -469,7 +434,7 @@ function AppsView({
           <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
             {apps.length} aplicativos catalogados com comandos de instalação
           </p>
-        </motion.div>
+        </div>
 
         {/* Filter bar */}
         <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-8">
@@ -535,9 +500,7 @@ function AppsView({
 
         {/* Empty state */}
         {filteredApps.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+          <div
             className="text-center py-20"
           >
             <div className="text-6xl mb-4">🔍</div>
@@ -547,7 +510,7 @@ function AppsView({
             <p className="text-sm text-white/30">
               Tente buscar por outro termo ou mudar a categoria
             </p>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>
@@ -562,9 +525,7 @@ function AboutView() {
   return (
     <section className="relative py-8 sm:py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <div
           className="text-center mb-10 sm:mb-14"
         >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
@@ -573,13 +534,10 @@ function AboutView() {
           <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
             Feito pela e para a comunidade Linux
           </p>
-        </motion.div>
+        </div>
 
         <div className="space-y-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+          <div
             className="glass-card p-6 sm:p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-4">
@@ -593,12 +551,9 @@ function AboutView() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+          <div
             className="glass-card p-6 sm:p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-4">
@@ -612,12 +567,9 @@ function AboutView() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+          <div
             className="glass-card p-6 sm:p-8 rounded-2xl"
           >
             <div className="flex items-start gap-4 mb-4">
@@ -631,12 +583,9 @@ function AboutView() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+          <div
             className="glass-card p-6 sm:p-8 rounded-2xl"
           >
             <h3 className="text-lg font-bold text-white mb-4">Distribuições Suportadas</h3>
@@ -661,7 +610,7 @@ function AboutView() {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
@@ -722,30 +671,20 @@ export default function Home() {
       />
 
       <main className="flex-1">
-        <AnimatePresence mode="wait">
+        <>
           {activeTab === "home" && (
-            <motion.div
-              key="home"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
+            <div key="home">
               <HeroSection onExplore={handleExploreApps} />
               <FeaturedAppsSection onAppClick={handleAppClick} />
               <CategoriesSection onCategoryClick={handleCategoryClick} />
               <StatsSection />
               <HowItWorksSection />
-            </motion.div>
+            </div>
           )}
 
           {activeTab === "apps" && (
-            <motion.div
+            <div
               key="apps"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
               className="pt-24"
             >
               <AppsView
@@ -753,22 +692,18 @@ export default function Home() {
                 setSearchQuery={setSearchQuery}
                 onAppClick={handleAppClick}
               />
-            </motion.div>
+            </div>
           )}
 
           {activeTab === "sobre" && (
-            <motion.div
+            <div
               key="sobre"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
               className="pt-24"
             >
               <AboutView />
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
+        </>
       </main>
 
       <Footer />

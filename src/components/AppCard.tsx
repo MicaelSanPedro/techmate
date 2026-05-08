@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { DynamicIcon } from "@/components/DynamicIcon";
 import { Star, Download, ChevronRight } from "lucide-react";
@@ -14,12 +13,7 @@ interface AppCardProps {
 
 export function AppCard({ app, index, onClick }: AppCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ delay: Math.min(index * 0.04, 0.2), duration: 0.4 }}
-    >
+    <div>
       <button
         onClick={onClick}
         className="w-full text-left group glass-card card-shine card-glow-hover rounded-2xl overflow-hidden hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
@@ -77,6 +71,6 @@ export function AppCard({ app, index, onClick }: AppCardProps) {
           </div>
         </div>
       </button>
-    </motion.div>
+    </div>
   );
 }

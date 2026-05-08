@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Copy, Check } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface CodeBlockProps {
   command: string;
@@ -52,29 +51,11 @@ export function CodeBlock({ command, label }: CodeBlockProps) {
           className="shrink-0 p-2 rounded-lg hover:bg-white/10 transition-colors group/btn"
           title="Copiar comando"
         >
-          <AnimatePresence mode="wait">
-            {copied ? (
-              <motion.div
-                key="check"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <Check className="w-4 h-4 text-amber-400" />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="copy"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <Copy className="w-4 h-4 text-white/30 group-hover/btn:text-white/60 transition-colors" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {copied ? (
+            <Check className="w-4 h-4 text-amber-400" />
+          ) : (
+            <Copy className="w-4 h-4 text-white/30 group-hover/btn:text-white/60 transition-colors" />
+          )}
         </button>
       </div>
     </div>

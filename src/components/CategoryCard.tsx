@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { DynamicIcon } from "@/components/DynamicIcon";
 
 interface CategoryCardProps {
@@ -14,9 +13,7 @@ interface CategoryCardProps {
 
 export function CategoryCard({ id, name, icon, count, isActive, onClick }: CategoryCardProps) {
   return (
-    <motion.button
-      whileHover={{ scale: 1.03, y: -2 }}
-      whileTap={{ scale: 0.97 }}
+    <button
       onClick={onClick}
       className={`relative flex flex-col items-center justify-center gap-3 p-5 sm:p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
         isActive
@@ -45,13 +42,6 @@ export function CategoryCard({ id, name, icon, count, isActive, onClick }: Categ
           {count} {count === 1 ? "app" : "apps"}
         </p>
       </div>
-      {isActive && (
-        <motion.div
-          layoutId="categoryActive"
-          className="absolute inset-0 rounded-2xl border-2 border-amber-500/40 pointer-events-none"
-          transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-        />
-      )}
-    </motion.button>
+    </button>
   );
 }
