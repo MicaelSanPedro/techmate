@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "LinuxZeiro - O melhor guia de apps Linux do Brasil",
+  title: "LinuxZeiro - Seu guia de apps para Linux",
   description:
     "Encontre os melhores aplicativos para sua distribuição Linux. Comandos prontos para copiar, observações e dicas.",
   keywords: [

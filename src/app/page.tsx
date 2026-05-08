@@ -141,7 +141,7 @@ function HeroSection({
         >
           <span className="text-white">Seu guia definitivo para </span>
           <br />
-          <span className="shimmer-text">apps Linux</span> 🚀
+          <span className="shimmer-text">apps Linux</span>
         </motion.h1>
 
         {/* Subtitle */}
