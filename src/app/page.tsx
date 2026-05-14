@@ -1,720 +1,141 @@
-"use client";
-
-import { useState, useEffect, useMemo } from "react";
+import Link from "next/link";
+import { getAllPosts, getFeaturedPosts, getAllCategories } from "@/lib/posts";
+import { FeaturedPost } from "@/components/FeaturedPost";
+import { PostCard } from "@/components/PostCard";
 import {
-  Terminal,
-  ChevronRight,
-  Package,
-  Search,
-  Code,
-  Copy,
-  Zap,
-  Monitor,
-  Download,
-  ExternalLink,
-  Star,
   ArrowRight,
-  Heart,
-  Shield,
-  Users,
+  Terminal,
   Cpu,
+  Shield,
+  Monitor,
+  Lightbulb,
+  Code,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Navbar } from "@/components/Navbar";
-import { AppCard } from "@/components/AppCard";
-import { CategoryCard } from "@/components/CategoryCard";
-import { CodeBlock } from "@/components/CodeBlock";
-import { Footer } from "@/components/Footer";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { AppDetail } from "@/components/AppDetail";
-import { apps, categories, type App } from "@/data/apps";
 
-/* ═══════════════════════════════════════════════════════
-   ANIMATED TERMINAL HERO
-   ═══════════════════════════════════════════════════════ */
+const categoryIcons: Record<string, React.ReactNode> = {
+  Linux: <Terminal className="w-5 h-5" />,
+  Windows: <Monitor className="w-5 h-5" />,
+  Desenvolvimento: <Code className="w-5 h-5" />,
+  Segurança: <Shield className="w-5 h-5" />,
+  Hardware: <Cpu className="w-5 h-5" />,
+  Dicas: <Lightbulb className="w-5 h-5" />,
+};
 
-function HeroTerminal() {
-  const [lines, setLines] = useState<string[]>([]);
-  const fullLines = [
-    "$ sudo flatpak install flathub org.mozilla.firefox",
-    "  Installing... ██████████████████ 100%",
-    "  Firefox instalado com sucesso! ✓",
-  ];
+const categoryColors: Record<string, string> = {
+  Linux: "from-amber-500/10 to-amber-500/5 border-amber-500/10",
+  Windows: "from-blue-500/10 to-blue-500/5 border-blue-500/10",
+  Desenvolvimento: "from-emerald-500/10 to-emerald-500/5 border-emerald-500/10",
+  "Segurança": "from-red-500/10 to-red-500/5 border-red-500/10",
+  Hardware: "from-purple-500/10 to-purple-500/5 border-purple-500/10",
+  Dicas: "from-cyan-500/10 to-cyan-500/5 border-cyan-500/10",
+};
 
-  useEffect(() => {
-    let lineIdx = 0;
-    let charIdx = 0;
-    const currentLines: string[] = [];
-    const interval = setInterval(() => {
-      if (lineIdx >= fullLines.length) {
-        clearInterval(interval);
-        return;
-      }
-      if (charIdx <= fullLines[lineIdx].length) {
-        currentLines[lineIdx] = fullLines[lineIdx].slice(0, charIdx);
-        setLines([...currentLines]);
-        charIdx++;
-      } else {
-        lineIdx++;
-        charIdx = 0;
-      }
-    }, 35);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="terminal-block max-w-lg mx-auto">
-      <div className="terminal-header">
-        <div className="flex gap-1.5">
-          <span className="terminal-dot bg-red-500" />
-          <span className="terminal-dot bg-yellow-500" />
-          <span className="terminal-dot bg-amber-500" />
-        </div>
-        <span className="text-xs text-white/40 ml-2 font-mono">~terminal</span>
-      </div>
-      <div className="terminal-body min-h-[80px]">
-        {lines.map((line, i) => (
-          <div key={i} className="mb-1 last:mb-0">
-            {line.startsWith("$") ? (
-              <span>
-                <span className="terminal-prompt">{line.slice(0, 2)}</span>
-                <span className="terminal-command">{line.slice(2)}</span>
-                {i === 0 && line.length < fullLines[0].length && (
-                  <span className="animate-terminal-blink text-amber-400">▋</span>
-                )}
-              </span>
-            ) : line.includes("█") ? (
-              <span className="text-amber-300">{line}</span>
-            ) : line.includes("✓") ? (
-              <span className="text-amber-400">{line}</span>
-            ) : (
-              <span className="text-white/50">{line}</span>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
+export default function HomePage() {
+  const allPosts = getAllPosts();
+  const featuredPosts = getFeaturedPosts();
+  const categories = getAllCategories();
+  const recentPosts = allPosts.filter(
+    (p) => !featuredPosts.find((f) => f.slug === p.slug)
   );
-}
-
-/* ═══════════════════════════════════════════════════════
-   HERO SECTION
-   ═══════════════════════════════════════════════════════ */
-
-function HeroSection({
-  onExplore,
-}: {
-  onExplore: () => void;
-}) {
-  return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
-      {/* Decorative rotating ring */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] pointer-events-none opacity-[0.03]">
-        <div className="w-full h-full border border-amber-500 rounded-full animate-rotate-slow" />
-        <div className="absolute inset-8 border border-yellow-500 rounded-full animate-rotate-slow" style={{ animationDirection: "reverse", animationDuration: "25s" }} />
-        <div className="absolute inset-16 border border-orange-500 rounded-full animate-rotate-slow" style={{ animationDuration: "35s" }} />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center">
-        {/* Badge */}
-        <div
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-6 sm:mb-8"
-        >
-          <Terminal className="w-4 h-4 text-amber-400" />
-          <span className="text-xs sm:text-sm font-medium text-white/70">
-            Comandos prontos para copiar
-          </span>
-          <Zap className="w-4 h-4 text-yellow-400" />
-        </div>
-
-        {/* Title */}
-        <h1
-          className="text-4xl sm:text-5xl md:text-7xl font-black leading-[0.95] tracking-tight mb-4 sm:mb-6"
-        >
-          <span className="text-white">Seu guia definitivo para </span>
-          <br />
-          <span className="shimmer-text">apps Linux</span>
-        </h1>
-
-        {/* Subtitle */}
-        <p
-          className="text-base sm:text-lg md:text-xl text-white/40 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed"
-        >
-          Encontre os melhores aplicativos para sua distribuição.{" "}
-          <span className="text-amber-400/70">Comandos prontos para copiar</span>,{" "}
-          <span className="text-yellow-400/70">observações</span> e{" "}
-          <span className="text-orange-400/70">dicas úteis</span>.
-        </p>
-
-        {/* Terminal animation */}
-        <div
-          className="mb-8 sm:mb-10"
-        >
-          <HeroTerminal />
-        </div>
-
-        {/* CTA Buttons */}
-        <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
-        >
-          <Button
-            onClick={onExplore}
-            size="lg"
-            className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white font-semibold rounded-xl shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transition-all duration-300 text-sm sm:text-base"
-          >
-            Explorar Apps
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-          <Button
-            onClick={() => {
-              document.getElementById("como-funciona")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            variant="outline"
-            size="lg"
-            className="w-full sm:w-auto px-8 py-3 bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20 text-white/80 font-semibold rounded-xl transition-all duration-300 text-sm sm:text-base"
-          >
-            <Monitor className="w-4 h-4 mr-2" />
-            Ver Tutoriais
-          </Button>
-        </div>
-      </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent pointer-events-none" />
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   FEATURED APPS SECTION
-   ═══════════════════════════════════════════════════════ */
-
-function FeaturedAppsSection({ onAppClick }: { onAppClick: (app: App) => void }) {
-  const featured = apps.slice(0, 6);
 
   return (
-    <section className="relative py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="text-center mb-10 sm:mb-14"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-4">
-            <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-            <span className="text-xs sm:text-sm font-medium text-white/60">
-              Populares
-            </span>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6">
+            <Terminal className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-xs text-amber-400 font-medium">Blog Tech</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
-            Apps <span className="shimmer-text">Populares</span>
-          </h2>
-          <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
-            Os aplicativos mais procurados pela comunidade Linux
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="text-white">Linux</span>
+            <span className="shimmer-text">Zeiro</span>
+            <span className="text-white/60"> Blog</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed">
+            Artigos, tutoriais e dicas sobre{" "}
+            <span className="text-amber-400/70">Linux</span>,{" "}
+            <span className="text-blue-400/70">Windows</span>, desenvolvimento e
+            tecnologia.
           </p>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {featured.map((app, i) => (
-            <AppCard
-              key={app.id}
-              app={app}
-              index={i}
-              onClick={() => onAppClick(app)}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   CATEGORIES SECTION
-   ═══════════════════════════════════════════════════════ */
-
-function CategoriesSection({ onCategoryClick }: { onCategoryClick: (cat: string) => void }) {
-  const displayCategories = categories.filter((c) => c.id !== "all");
-
-  return (
-    <section className="relative py-16 sm:py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="text-center mb-10 sm:mb-14"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-4">
-            <Package className="w-4 h-4 text-amber-400" />
-            <span className="text-xs sm:text-sm font-medium text-white/60">
-              Organize por categoria
-            </span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
-            <span className="shimmer-text">Categorias</span>
-          </h2>
-          <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
-            Explore apps por área de interesse
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-          {displayCategories.map((cat) => (
-            <CategoryCard
-              key={cat.id}
-              id={cat.id}
-              name={cat.name}
-              icon={cat.icon}
-              count={cat.count}
-              isActive={false}
-              onClick={() => onCategoryClick(cat.id)}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   STATS SECTION
-   ═══════════════════════════════════════════════════════ */
-
-function StatsSection() {
-  const stats = [
-    { value: `${apps.length}+`, label: "Apps catalogados", icon: Package, color: "text-amber-400" },
-    { value: `${categories.length - 1}`, label: "Categorias", icon: Monitor, color: "text-yellow-400" },
-    { value: "10+", label: "Distros Suportadas", icon: Cpu, color: "text-orange-400" },
-    { value: "50+", label: "Comandos prontos", icon: Terminal, color: "text-amber-300" },
-  ];
-
-  return (
-    <section className="relative py-16 sm:py-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-card p-6 sm:p-8 rounded-2xl">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-            {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className="text-center"
-              >
-                <stat.icon className={`w-6 h-6 ${stat.color} mx-auto mb-3`} />
-                <p className="text-2xl sm:text-3xl font-bold text-white mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-xs sm:text-sm text-white/40">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   HOW IT WORKS SECTION
-   ═══════════════════════════════════════════════════════ */
-
-function HowItWorksSection() {
-  const steps = [
-    {
-      step: "01",
-      title: "Busque o app",
-      description: "Use a barra de busca ou navegue pelas categorias para encontrar o aplicativo desejado.",
-      icon: Search,
-      color: "from-amber-500 to-yellow-500",
-    },
-    {
-      step: "02",
-      title: "Copie o comando",
-      description: "Encontre o comando de instalação para sua distribuição e clique para copiar.",
-      icon: Copy,
-      color: "from-yellow-500 to-amber-400",
-    },
-    {
-      step: "03",
-      title: "Cole no terminal",
-      description: "Abra o terminal e cole o comando. Pronto! O app será instalado automaticamente.",
-      icon: Terminal,
-      color: "from-amber-400 to-orange-500",
-    },
-  ];
-
-  return (
-    <section id="como-funciona" className="relative py-16 sm:py-24">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="text-center mb-10 sm:mb-14"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-light mb-4">
-            <Zap className="w-4 h-4 text-orange-400" />
-            <span className="text-xs sm:text-sm font-medium text-white/60">
-              Simples e rápido
-            </span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
-            Como <span className="shimmer-text">Funciona</span>
-          </h2>
-          <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
-            Três passos simples para instalar qualquer app
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-          {steps.map((item, i) => (
-            <div
-              key={item.step}
-              className="relative group"
-            >
-              <div className="glass-card p-6 sm:p-8 rounded-2xl text-center card-glow-hover h-full">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                  <item.icon className="w-7 h-7 text-white" />
-                </div>
-                <span className="text-xs font-bold text-amber-400/60 tracking-widest mb-2 block">
-                  PASSO {item.step}
-                </span>
-                <h3 className="text-lg font-bold text-white mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-white/40 leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-
-              {/* Arrow connector (desktop only) */}
-              {i < steps.length - 1 && (
-                <div className="hidden sm:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
-                  <ChevronRight className="w-6 h-6 text-amber-500/30" />
-                </div>
-              )}
+      {/* Featured Posts */}
+      {featuredPosts.length > 0 && (
+        <section className="px-4 pb-16">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1 h-6 rounded-full bg-amber-500" />
+              <h2 className="text-xl font-bold text-white">Destaques</h2>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   APPS VIEW
-   ═══════════════════════════════════════════════════════ */
-
-function AppsView({
-  searchQuery,
-  setSearchQuery,
-  onAppClick,
-}: {
-  searchQuery: string;
-  setSearchQuery: (q: string) => void;
-  onAppClick: (app: App) => void;
-}) {
-  const [activeCategory, setActiveCategory] = useState("all");
-
-  const filteredApps = useMemo(() => {
-    return apps.filter((app) => {
-      const matchesCategory = activeCategory === "all" || app.category === activeCategory;
-      const matchesSearch =
-        searchQuery === "" ||
-        app.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        app.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        app.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        app.category.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
-    });
-  }, [activeCategory, searchQuery]);
-
-  return (
-    <section className="relative py-8 sm:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div
-          className="text-center mb-8 sm:mb-10"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
-            <span className="shimmer-text">Apps</span> para Linux
-          </h2>
-          <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
-            {apps.length} aplicativos catalogados com comandos de instalação
-          </p>
-        </div>
-
-        {/* Filter bar */}
-        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mb-8">
-          {/* Search */}
-          <div className="relative w-full sm:w-72">
-            <div className="search-glow glass-input flex items-center gap-2 rounded-xl px-3.5 py-2.5 transition-all duration-300">
-              <Search className="w-4 h-4 text-white/30 shrink-0" />
-              <input
-                type="text"
-                placeholder="Filtrar apps..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none outline-none text-sm text-white/90 placeholder:text-white/25 w-full"
-              />
-            </div>
-          </div>
-
-          {/* Category filter */}
-          <div className="flex flex-wrap items-center gap-2">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 ${
-                  activeCategory === cat.id
-                    ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                    : "bg-white/[0.03] text-white/40 border border-white/[0.06] hover:bg-white/[0.06] hover:text-white/60"
-                }`}
-              >
-                {cat.name}
-                <span className="ml-1.5 text-[10px] opacity-60">({cat.count})</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Results count */}
-        <p className="text-xs text-white/30 mb-4">
-          Mostrando {filteredApps.length} de {apps.length} apps
-          {activeCategory !== "all" && (
-            <span>
-              {" "}na categoria &quot;{categories.find((c) => c.id === activeCategory)?.name}&quot;
-            </span>
-          )}
-          {searchQuery && (
-            <span>
-              {" "}para &quot;{searchQuery}&quot;
-            </span>
-          )}
-        </p>
-
-        {/* App List */}
-        <div className="flex flex-col gap-3">
-          {filteredApps.map((app, i) => (
-            <AppCard
-              key={app.id}
-              app={app}
-              index={i}
-              onClick={() => onAppClick(app)}
-            />
-          ))}
-        </div>
-
-        {/* Empty state */}
-        {filteredApps.length === 0 && (
-          <div
-            className="text-center py-20"
-          >
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white/60 mb-2">
-              Nenhum app encontrado
-            </h3>
-            <p className="text-sm text-white/30">
-              Tente buscar por outro termo ou mudar a categoria
-            </p>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   ABOUT VIEW
-   ═══════════════════════════════════════════════════════ */
-
-function AboutView() {
-  return (
-    <section className="relative py-8 sm:py-12">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className="text-center mb-10 sm:mb-14"
-        >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
-            Sobre o <span className="shimmer-text">LinuxZeiro</span>
-          </h2>
-          <p className="text-sm sm:text-base text-white/30 max-w-lg mx-auto">
-            Feito pela e para a comunidade Linux
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          <div
-            className="glass-card p-6 sm:p-8 rounded-2xl"
-          >
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-500 flex items-center justify-center shrink-0">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white mb-2">Nossa Missão</h3>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  O LinuxZeiro nasceu da necessidade de ter um guia completo e em português para encontrar e instalar aplicativos no Linux. Acreditamos que o Linux deve ser acessível para todos, e que a instalação de apps não precisa ser complicada. Comandos prontos para copiar e observações úteis fazem toda a diferença.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="glass-card p-6 sm:p-8 rounded-2xl"
-          >
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-500 to-amber-400 flex items-center justify-center shrink-0">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white mb-2">Open Source</h3>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  Valorizamos o software livre e de código aberto. Priorizamos apps que respeitam a privacidade dos usuários e que são desenvolvidos de forma transparente. Nosso catálogo inclui tanto aplicativos open-source quanto opções proprietárias que são úteis para a comunidade.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="glass-card p-6 sm:p-8 rounded-2xl"
-          >
-            <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shrink-0">
-                <Users className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white mb-2">Comunidade</h3>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  O LinuxZeiro é construído com a ajuda da comunidade. Se você encontrou um erro em algum comando, quer sugerir um novo app ou contribuir de alguma forma, fique à vontade! Juntos podemos tornar o Linux mais acessível para todos os brasileiros.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="glass-card p-6 sm:p-8 rounded-2xl"
-          >
-            <h3 className="text-lg font-bold text-white mb-4">Distribuições Suportadas</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {[
-                "Ubuntu",
-                "Debian",
-                "Fedora",
-                "Arch Linux",
-                "Linux Mint",
-                "Pop!_OS",
-                "Manjaro",
-                "openSUSE",
-                "elementary OS",
-              ].map((distro) => (
-                <div
-                  key={distro}
-                  className="flex items-center gap-2 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]"
-                >
-                  <div className="w-2 h-2 rounded-full bg-amber-500" />
-                  <span className="text-sm text-white/60">{distro}</span>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {featuredPosts.map((post) => (
+                <FeaturedPost key={post.slug} post={post} />
               ))}
             </div>
           </div>
+        </section>
+      )}
+
+      {/* Categories */}
+      {categories.length > 0 && (
+        <section className="px-4 pb-16" id="categories">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1 h-6 rounded-full bg-amber-500" />
+              <h2 className="text-xl font-bold text-white">Categorias</h2>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              {categories.map((cat) => (
+                <Link
+                  key={cat.name}
+                  href={`/blog?category=${encodeURIComponent(cat.name)}`}
+                  className={`group flex flex-col items-center gap-3 p-5 rounded-xl bg-gradient-to-b border transition-all hover:scale-[1.02] ${
+                    categoryColors[cat.name] || "from-white/5 to-white/[0.02] border-white/[0.06]"
+                  }`}
+                >
+                  <div className="text-amber-400">
+                    {categoryIcons[cat.name] || <Terminal className="w-5 h-5" />}
+                  </div>
+                  <div className="text-center">
+                    <span className="text-sm font-medium text-white/80 block">
+                      {cat.name}
+                    </span>
+                    <span className="text-xs text-white/30">
+                      {cat.count} {cat.count === 1 ? "artigo" : "artigos"}
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Recent Posts */}
+      <section className="px-4 pb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center gap-3">
+              <div className="w-1 h-6 rounded-full bg-amber-500" />
+              <h2 className="text-xl font-bold text-white">Últimos Artigos</h2>
+            </div>
+            <Link
+              href="/blog"
+              className="flex items-center gap-1.5 text-sm text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              Ver todos
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {recentPosts.map((post) => (
+              <PostCard key={post.slug} post={post} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════
-   MAIN PAGE
-   ═══════════════════════════════════════════════════════ */
-
-export default function Home() {
-  const [activeTab, setActiveTab] = useState("home");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedApp, setSelectedApp] = useState<App | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Hash routing
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash === "apps" || hash === "sobre" || hash === "home") {
-        setActiveTab(hash);
-      }
-    };
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
-
-  const handleSetTab = (tab: string) => {
-    setActiveTab(tab);
-    window.location.hash = tab;
-  };
-
-  const handleAppClick = (app: App) => {
-    setSelectedApp(app);
-    setIsModalOpen(true);
-  };
-
-  const handleExploreApps = () => {
-    handleSetTab("apps");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleCategoryClick = (catId: string) => {
-    setSearchQuery("");
-    handleSetTab("apps");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  return (
-    <>
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={handleSetTab}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
-
-      <main className="flex-1">
-        <>
-          {activeTab === "home" && (
-            <div key="home">
-              <HeroSection onExplore={handleExploreApps} />
-              <FeaturedAppsSection onAppClick={handleAppClick} />
-              <CategoriesSection onCategoryClick={handleCategoryClick} />
-              <StatsSection />
-              <HowItWorksSection />
-            </div>
-          )}
-
-          {activeTab === "apps" && (
-            <div
-              key="apps"
-              className="pt-24"
-            >
-              <AppsView
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                onAppClick={handleAppClick}
-              />
-            </div>
-          )}
-
-          {activeTab === "sobre" && (
-            <div
-              key="sobre"
-              className="pt-24"
-            >
-              <AboutView />
-            </div>
-          )}
-        </>
-      </main>
-
-      <Footer />
-      <ScrollToTop />
-
-      {/* App Detail Modal */}
-      <AppDetail
-        app={selectedApp}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-    </>
+      </section>
+    </div>
   );
 }
