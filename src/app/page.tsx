@@ -10,6 +10,7 @@ import {
   Monitor,
   Lightbulb,
   Code,
+  Gamepad2,
 } from "lucide-react";
 
 const categoryIcons: Record<string, React.ReactNode> = {
@@ -19,6 +20,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
   Segurança: <Shield className="w-5 h-5" />,
   Hardware: <Cpu className="w-5 h-5" />,
   Dicas: <Lightbulb className="w-5 h-5" />,
+  Jogos: <Gamepad2 className="w-5 h-5" />,
 };
 
 const categoryColors: Record<string, string> = {
@@ -28,6 +30,7 @@ const categoryColors: Record<string, string> = {
   "Segurança": "from-red-500/10 to-red-500/5 border-red-500/10",
   Hardware: "from-purple-500/10 to-purple-500/5 border-purple-500/10",
   Dicas: "from-cyan-500/10 to-cyan-500/5 border-cyan-500/10",
+  Jogos: "from-green-500/10 to-green-500/5 border-green-500/10",
 };
 
 export default function HomePage() {

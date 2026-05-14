@@ -9,6 +9,7 @@ const categoryGradients: Record<string, string> = {
   dev: "from-emerald-900/40 via-emerald-800/20 to-transparent",
   segurança: "from-red-900/40 via-red-800/20 to-transparent",
   hardware: "from-purple-900/40 via-purple-800/20 to-transparent",
+  jogos: "from-green-900/40 via-green-800/20 to-transparent",
   dicas: "from-cyan-900/40 via-cyan-800/20 to-transparent",
 };
 

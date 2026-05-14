@@ -4,13 +4,16 @@ const categoryColors: Record<string, string> = {
   linux: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   windows: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   dev: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  desenvolvimento: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   segurança: "bg-red-500/10 text-red-400 border-red-500/20",
   hardware: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   dicas: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+  jogos: "bg-green-500/10 text-green-400 border-green-500/20",
 };
 
 function getColorClasses(category: string): string {
   const key = category.toLowerCase();
+  if (categoryColors[key]) return categoryColors[key];
   for (const [k, v] of Object.entries(categoryColors)) {
     if (key.includes(k)) return v;
   }
