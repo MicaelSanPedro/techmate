@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { SearchBar } from "@/components/SearchBar";
+import { getAllPosts } from "@/lib/posts";
 
 const navLinks = [
   { label: "Início", href: "/" },
@@ -14,6 +16,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const allPosts = getAllPosts();
 
   useEffect(() => {
     let ticking = false;
@@ -30,7 +33,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on resize to desktop
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) setMobileOpen(false);
@@ -49,7 +51,7 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
+            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
               <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden shadow-lg shadow-amber-500/25 group-hover:shadow-amber-500/40 transition-shadow duration-300">
                 <Image
                   src="/logo.webp"
@@ -81,14 +83,10 @@ export function Navbar() {
 
             {/* Right side: Search + Mobile Toggle */}
             <div className="flex items-center gap-2">
-              {/* Search button (decorative) */}
-              <button
-                className="hidden md:flex p-2.5 rounded-xl hover:bg-white/5 transition-colors duration-200"
-                aria-label="Buscar"
-                type="button"
-              >
-                <Search className="w-5 h-5 text-white/50" />
-              </button>
+              {/* Search */}
+              <div className="hidden md:block">
+                <SearchBar allPosts={allPosts} />
+              </div>
 
               {/* Mobile hamburger */}
               <button
@@ -128,14 +126,13 @@ export function Navbar() {
             </Link>
           ))}
           <div className="pt-2 border-t border-white/[0.06]">
-            <button
+            <Link
+              href="/search"
+              onClick={() => setMobileOpen(false)}
               className="flex items-center gap-2.5 w-full text-left px-4 py-3 text-sm font-medium rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition-all duration-200"
-              aria-label="Buscar"
-              type="button"
             >
-              <Search className="w-4 h-4" />
               Buscar
-            </button>
+            </Link>
           </div>
         </div>
       </div>

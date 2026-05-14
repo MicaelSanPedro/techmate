@@ -388,12 +388,16 @@
 
 .prose-custom table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin: 1.5em 0;
   font-size: 0.875rem;
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  border: 1px solid rgba(249, 189, 24, 0.12);
+  border-radius: 0.75rem;
+  background: rgba(255,255,255,0.015);
 }
 
 .prose-custom table thead {
@@ -409,6 +413,7 @@
 .prose-custom table tr {
   display: table-row;
   width: 100%;
+  transition: background 0.15s ease;
 }
 
 .prose-custom table th,
@@ -418,27 +423,61 @@
 
 .prose-custom th {
   text-align: left;
-  padding: 0.65em 0.75em;
-  background: rgba(249, 189, 24, 0.06);
+  padding: 0.75em 1em;
+  background: rgba(249, 189, 24, 0.08);
   color: #f9bd18;
   font-weight: 600;
-  border-bottom: 1px solid rgba(249, 189, 24, 0.15);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(249, 189, 24, 0.18);
   white-space: nowrap;
 }
 
+.prose-custom th:first-child {
+  border-radius: 0.65rem 0 0 0;
+}
+
+.prose-custom th:last-child {
+  border-radius: 0 0.65rem 0 0;
+}
+
 .prose-custom td {
-  padding: 0.5em 0.75em;
+  padding: 0.65em 1em;
   border-bottom: 1px solid rgba(255,255,255,0.04);
-  color: rgba(232, 229, 223, 0.7);
+  color: rgba(232, 229, 223, 0.75);
   white-space: nowrap;
   text-align: center;
+  font-size: 0.875rem;
 }
 
 .prose-custom td:first-child,
 .prose-custom th:first-child {
   text-align: left;
+  font-weight: 500;
+  color: rgba(232, 229, 223, 0.9);
 }
 
-.prose-custom tr:hover td {
-  background: rgba(255,255,255,0.02);
+.prose-custom tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prose-custom tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 0.65rem;
+}
+
+.prose-custom tbody tr:last-child td:last-child {
+  border-radius: 0 0 0.65rem 0;
+}
+
+.prose-custom tbody tr:hover td {
+  background: rgba(249, 189, 24, 0.04);
+}
+
+.prose-custom tbody tr:nth-child(even) td {
+  background: rgba(255,255,255,0.01);
+}
+
+.prose-custom tbody tr:nth-child(even):hover td {
+  background: rgba(249, 189, 24, 0.05);
 }

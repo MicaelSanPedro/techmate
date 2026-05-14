@@ -39,6 +39,14 @@ export interface TagCount {
 
 const postsDirectory = path.join(process.cwd(), "src/content/posts");
 
+function calculateReadTime(content: string): string {
+  const wordsPerMinute = 200;
+  const words = content.replace(/\s+/g, ' ').trim().split(' ').length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  if (minutes < 1) return "1 min";
+  return `${minutes} min`;
+}
+
 function getMarkdownFiles(): string[] {
   if (!fs.existsSync(postsDirectory)) {
     return [];
@@ -61,7 +69,7 @@ function parsePostFile(fileName: string): { slug: string; frontmatter: PostFront
     category: data.category || "Geral",
     tags: Array.isArray(data.tags) ? data.tags : [],
     coverImage: data.coverImage || "",
-    readTime: data.readTime || "5 min",
+    readTime: calculateReadTime(content),
     featured: Boolean(data.featured),
   };
 
