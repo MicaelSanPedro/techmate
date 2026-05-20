@@ -153,10 +153,10 @@ export default function HomePage() {
             {(() => {
               const [featuredCat, ...restCats] = categories;
               return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-                  {/* Featured big card (takes 1 col always, but is taller) */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+                  {/* Featured big card (left) */}
                   {featuredCat && (
-                    <div className="sm:row-span-2 animate-fade-up delay-0">
+                    <div className="animate-fade-up delay-0">
                       <CategoryCard
                         name={featuredCat.name}
                         count={featuredCat.count}
@@ -166,20 +166,22 @@ export default function HomePage() {
                     </div>
                   )}
 
-                  {/* Standard cards */}
-                  {restCats.map((cat, i) => (
-                    <div
-                      key={cat.name}
-                      className={`animate-fade-up delay-${Math.min(i + 1, 6)}`}
-                    >
-                      <CategoryCard
-                        name={cat.name}
-                        count={cat.count}
-                        size="md"
-                        className="h-full"
-                      />
-                    </div>
-                  ))}
+                  {/* Standard cards (2x2 grid on the right) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    {restCats.map((cat, i) => (
+                      <div
+                        key={cat.name}
+                        className={`animate-fade-up delay-${Math.min(i + 1, 6)}`}
+                      >
+                        <CategoryCard
+                          name={cat.name}
+                          count={cat.count}
+                          size="md"
+                          className="h-full"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               );
             })()}
