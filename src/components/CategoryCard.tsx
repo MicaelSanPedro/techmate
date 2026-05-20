@@ -160,7 +160,7 @@ export function CategoryCard({ name, count, size = "md", className = "" }: Categ
           {/* Icon (NO flex shrink, FIXED dimensions) */}
           <div
             className={`flex items-center justify-center rounded-xl border
-                        backdrop-blur-sm
+
                         ${isLg ? "w-14 h-14" : "w-12 h-12"}
                         group-hover:scale-110 group-hover:-rotate-3
                         transition-transform duration-500`}

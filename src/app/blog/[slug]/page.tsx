@@ -117,7 +117,7 @@ export default async function PostPage({ params }: PostPageProps) {
           </p>
 
           {/* Meta bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-white/[0.025] border border-white/[0.06] backdrop-blur-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 py-3 sm:py-4 px-4 sm:px-5 rounded-xl sm:rounded-2xl bg-white/[0.025] border border-white/[0.06]">
             <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-5 gap-y-2.5">
               <div className="flex items-center gap-2 sm:gap-2.5 text-sm">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-amber-400/40 to-amber-600/30 ring-1 ring-amber-400/30 flex items-center justify-center">
@@ -230,7 +230,7 @@ export default async function PostPage({ params }: PostPageProps) {
               Continue lendo
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+          <div className="cv-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
             {related.map((p) => (
               <PostCard key={p.slug} post={p} />
             ))}

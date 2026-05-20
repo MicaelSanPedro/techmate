@@ -67,7 +67,7 @@ export function PostCard({ post }: PostCardProps) {
           </div>
 
           {/* Arrow icon on hover (desktop) / always-visible muted (mobile) */}
-          <div className="absolute top-3 right-3 w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-black/50 backdrop-blur-md border border-white/[0.12] flex items-center justify-center
+          <div className="absolute top-3 right-3 w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-black/70 border border-white/[0.12] flex items-center justify-center
                           opacity-70 sm:opacity-0 sm:-translate-y-1 sm:group-hover:opacity-100 sm:group-hover:translate-y-0
                           transition-all duration-300">
             <ArrowUpRight className="w-4 h-4 text-amber-300" />

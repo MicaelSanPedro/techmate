@@ -117,7 +117,7 @@ export function FeaturedPost({ post, variant = "hero" }: FeaturedPostProps) {
 
         {/* Featured tag */}
         <div className="absolute top-4 right-4 sm:top-5 sm:right-5 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full
-                        bg-amber-500/15 border border-amber-500/30 backdrop-blur-md">
+                        bg-amber-500/15 border border-amber-500/30">
           <Sparkles className="w-3 h-3 text-amber-300" />
           <span className="text-[10px] uppercase tracking-wider font-semibold text-amber-200">
             Destaque
@@ -158,7 +158,7 @@ export function FeaturedPost({ post, variant = "hero" }: FeaturedPostProps) {
             </div>
 
             <span className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full
-                             bg-white/[0.05] border border-white/[0.1] backdrop-blur-md
+                             bg-white/[0.05] border border-white/[0.1]
                              text-sm font-medium text-amber-200 w-full sm:w-auto
                              group-hover:bg-amber-500/15 group-hover:border-amber-400/40 group-hover:text-amber-100
                              transition-all duration-300">

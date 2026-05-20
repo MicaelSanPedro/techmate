@@ -26,14 +26,9 @@ export default function HomePage() {
     <div className="flex flex-col">
       {/* ─────────── Hero ─────────── */}
       <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-44 lg:pb-32 px-4 overflow-hidden">
-        {/* Decorative concentric rings (hidden on small mobile) */}
-        <div className="hidden sm:block hero-ring w-[600px] h-[600px] top-[10%] left-1/2 -translate-x-1/2" />
-        <div className="hidden sm:block hero-ring w-[900px] h-[900px] top-[5%] left-1/2 -translate-x-1/2 opacity-50" />
-        <div className="hidden lg:block hero-ring w-[1200px] h-[1200px] top-[-5%] left-1/2 -translate-x-1/2 opacity-30" />
-
         <div className="relative max-w-5xl mx-auto text-center">
           {/* Live badge */}
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] mb-6 sm:mb-8 backdrop-blur-md animate-fade-up delay-0">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] mb-6 sm:mb-8 animate-fade-up delay-0">
             <span className="live-dot" />
             <span className="text-[10px] sm:text-[11px] text-white/70 font-medium tracking-wider uppercase">
               Tech blog · ao vivo
@@ -105,7 +100,7 @@ export default function HomePage() {
 
       {/* ─────────── Featured Bento ─────────── */}
       {mainFeatured && (
-        <section className="px-4 pb-16 sm:pb-20 lg:pb-24">
+        <section className="cv-auto px-4 pb-16 sm:pb-20 lg:pb-24">
           <div className="max-w-7xl mx-auto">
             <SectionHeader
               eyebrow="Em destaque"
@@ -142,7 +137,7 @@ export default function HomePage() {
 
       {/* ─────────── Categories ─────────── */}
       {categories.length > 0 && (
-        <section className="px-4 pb-16 sm:pb-20 lg:pb-24" id="categories">
+        <section className="cv-auto px-4 pb-16 sm:pb-20 lg:pb-24" id="categories">
           <div className="max-w-7xl mx-auto">
             <SectionHeader
               eyebrow="Por tema"
@@ -190,7 +185,7 @@ export default function HomePage() {
       )}
 
       {/* ─────────── Recent Posts ─────────── */}
-      <section className="px-4 pb-20 sm:pb-24">
+      <section className="cv-auto px-4 pb-20 sm:pb-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between mb-8 sm:mb-12 gap-3 sm:gap-4">
             <SectionHeader
@@ -222,7 +217,7 @@ export default function HomePage() {
       </section>
 
       {/* ─────────── Newsletter ─────────── */}
-      <section className="px-4 pb-20 sm:pb-28">
+      <section className="cv-auto px-4 pb-20 sm:pb-28">
         <div className="max-w-4xl mx-auto">
           <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/[0.08] p-6 sm:p-10 lg:p-12 text-center
                           bg-gradient-to-br from-amber-500/[0.08] via-white/[0.02] to-rose-500/[0.04]">
