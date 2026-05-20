@@ -3,49 +3,13 @@ import { getAllPosts, getFeaturedPosts, getAllCategories } from "@/lib/posts";
 import { FeaturedPost } from "@/components/FeaturedPost";
 import { PostCard } from "@/components/PostCard";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { CategoryCard } from "@/components/CategoryCard";
 import {
   ArrowRight,
-  Terminal,
-  Cpu,
-  Shield,
-  Monitor,
-  Lightbulb,
-  Code,
-  Gamepad2,
   Sparkles,
   Zap,
   Rss,
 } from "lucide-react";
-
-const categoryIcons: Record<string, React.ReactNode> = {
-  Linux: <Terminal className="w-5 h-5" />,
-  Windows: <Monitor className="w-5 h-5" />,
-  Desenvolvimento: <Code className="w-5 h-5" />,
-  "Segurança": <Shield className="w-5 h-5" />,
-  Hardware: <Cpu className="w-5 h-5" />,
-  Dicas: <Lightbulb className="w-5 h-5" />,
-  Jogos: <Gamepad2 className="w-5 h-5" />,
-};
-
-const categoryGradient: Record<string, string> = {
-  Linux: "from-amber-500/20 via-amber-500/5 to-transparent",
-  Windows: "from-sky-500/20 via-sky-500/5 to-transparent",
-  Desenvolvimento: "from-emerald-500/20 via-emerald-500/5 to-transparent",
-  "Segurança": "from-rose-500/20 via-rose-500/5 to-transparent",
-  Hardware: "from-violet-500/20 via-violet-500/5 to-transparent",
-  Dicas: "from-cyan-500/20 via-cyan-500/5 to-transparent",
-  Jogos: "from-lime-500/20 via-lime-500/5 to-transparent",
-};
-
-const categoryIconColor: Record<string, string> = {
-  Linux: "text-amber-300",
-  Windows: "text-sky-300",
-  Desenvolvimento: "text-emerald-300",
-  "Segurança": "text-rose-300",
-  Hardware: "text-violet-300",
-  Dicas: "text-cyan-300",
-  Jogos: "text-lime-300",
-};
 
 export default function HomePage() {
   const allPosts = getAllPosts();
@@ -182,47 +146,43 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto">
             <SectionHeader
               eyebrow="Por tema"
-              title="Categorias"
+              title="Navegue por categoria"
               subtitle="Escolha seu universo"
             />
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3 sm:gap-4">
-              {categories.map((cat, i) => (
-                <Link
-                  key={cat.name}
-                  href={`/blog?category=${encodeURIComponent(cat.name)}`}
-                  className={`spotlight group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-gradient-to-b ${
-                    categoryGradient[cat.name] || "from-white/[0.04] via-white/[0.01] to-transparent"
-                  } p-4 sm:p-5 transition-all duration-300 hover:border-white/15 hover:-translate-y-0.5 active:scale-[0.98] animate-fade-up delay-${Math.min(i, 6)}`}
-                >
-                  {/* Glow blob */}
-                  <div
-                    className={`absolute -top-10 -right-10 w-24 h-24 rounded-full blur-2xl opacity-40 group-hover:opacity-80 transition-opacity ${
-                      categoryIconColor[cat.name] || "text-amber-300"
-                    }`}
-                    style={{ background: "currentColor" }}
-                  />
+            {(() => {
+              const [featuredCat, ...restCats] = categories;
+              return (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                  {/* Featured big card (takes 1 col always, but is taller) */}
+                  {featuredCat && (
+                    <div className="sm:row-span-2 animate-fade-up delay-0">
+                      <CategoryCard
+                        name={featuredCat.name}
+                        count={featuredCat.count}
+                        size="lg"
+                        className="h-full"
+                      />
+                    </div>
+                  )}
 
-                  <div className="relative flex flex-col items-start gap-3 sm:gap-3.5">
+                  {/* Standard cards */}
+                  {restCats.map((cat, i) => (
                     <div
-                      className={`flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] ${
-                        categoryIconColor[cat.name] || "text-amber-300"
-                      } group-hover:scale-110 group-hover:rotate-3 transition-transform`}
+                      key={cat.name}
+                      className={`animate-fade-up delay-${Math.min(i + 1, 6)}`}
                     >
-                      {categoryIcons[cat.name] || <Terminal className="w-5 h-5" />}
+                      <CategoryCard
+                        name={cat.name}
+                        count={cat.count}
+                        size="md"
+                        className="h-full"
+                      />
                     </div>
-                    <div>
-                      <span className="text-sm font-semibold text-white block leading-tight">
-                        {cat.name}
-                      </span>
-                      <span className="text-[11px] text-white/40 font-mono tabular-nums mt-0.5 block">
-                        {String(cat.count).padStart(2, "0")} {cat.count === 1 ? "artigo" : "artigos"}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </section>
       )}
