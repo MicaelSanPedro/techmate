@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { ScrollRevealInit } from "@/components/ScrollRevealInit";
+import { BokehParticles } from "@/components/BokehParticles";
 import { getAllPosts } from "@/lib/posts";
 
 const geistSans = Geist({
@@ -83,6 +84,14 @@ export default function RootLayout({
           {/* Noise overlay */}
           <div className="noise-overlay" />
         </div>
+
+        {/* Cinematic overlays */}
+        <div className="cinema-vignette" aria-hidden />
+        <div className="cinema-grain" aria-hidden />
+        <div className="light-leak light-leak--amber" aria-hidden />
+        <div className="light-leak light-leak--rose" aria-hidden />
+        <div className="light-leak light-leak--sky" aria-hidden />
+        <BokehParticles />
 
         <div className="relative z-10 min-h-screen flex flex-col">
           <ScrollRevealInit />

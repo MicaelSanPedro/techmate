@@ -222,23 +222,6 @@
   inset: 0;
 }
 
-/* ─── Global Backdrop ──────────────────────── */
-.site-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-.site-backdrop .grid-bg {
-  position: absolute;
-  inset: 0;
-}
-.site-backdrop .noise-overlay {
-  position: absolute;
-  inset: 0;
-}
-
 /* ─── Ambient orbs ─────────────────────────── */
 .ambient-orb {
   position: absolute;
@@ -394,23 +377,6 @@
 .prose-custom > ol.revealed {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* ─── Page Transition ─────────────────────── */
-@keyframes page-enter {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-    filter: blur(6px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-.page-transition {
-  animation: page-enter 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* ─── Terminal code block ──────────────────── */
@@ -679,6 +645,108 @@
 .prose-custom tbody tr:hover td { background: rgba(249, 189, 24, 0.05); }
 .prose-custom tbody tr:nth-child(even) td { background: rgba(255,255,255,0.012); }
 .prose-custom tbody tr:nth-child(even):hover td { background: rgba(249, 189, 24, 0.05); }
+
+/* ─── Cinematic Vignette ───────────────────── */
+.cinema-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,0.55) 100%);
+}
+
+/* ─── Animated Film Grain ──────────────────── */
+.cinema-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 2;
+  pointer-events: none;
+  width: 200%;
+  height: 200%;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation: grain-shift 0.4s steps(5) infinite;
+}
+@keyframes grain-shift {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-5%, -8%); }
+  40% { transform: translate(3%, -4%); }
+  60% { transform: translate(-8%, 5%); }
+  80% { transform: translate(6%, 3%); }
+}
+
+/* ─── Light Leaks ──────────────────────────── */
+.light-leak {
+  position: fixed;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(90px);
+  mix-blend-mode: screen;
+  opacity: 0;
+}
+.light-leak--amber {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(249,189,24,0.12) 0%, transparent 70%);
+  top: -8%; right: -8%;
+  animation: leak-drift-1 14s ease-in-out infinite;
+}
+.light-leak--rose {
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(244,63,94,0.08) 0%, transparent 70%);
+  bottom: 15%; left: -6%;
+  animation: leak-drift-2 18s ease-in-out infinite;
+}
+.light-leak--sky {
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%);
+  top: 40%; right: 8%;
+  animation: leak-drift-3 22s ease-in-out infinite;
+}
+@keyframes leak-drift-1 {
+  0%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
+  30% { opacity: 0.6; }
+  55% { opacity: 0.35; transform: translate(-50px, 35px) scale(1.15); }
+  80% { opacity: 0.7; }
+}
+@keyframes leak-drift-2 {
+  0%, 100% { opacity: 0; transform: translate(0, 0) scale(1); }
+  35% { opacity: 0.4; }
+  65% { opacity: 0.5; transform: translate(40px, -25px) scale(1.1); }
+}
+@keyframes leak-drift-3 {
+  0%, 100% { opacity: 0; transform: translate(0, 0) scale(0.95); }
+  45% { opacity: 0.35; transform: translate(-25px, 15px) scale(1.08); }
+  75% { opacity: 0.5; }
+}
+
+/* ─── Bokeh Canvas ─────────────────────────── */
+.bokeh-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* ─── Cinematic Page Transition ────────────── */
+@keyframes page-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.99);
+    filter: blur(8px);
+    clip-path: inset(4px 0 4px 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+.page-transition {
+  animation: page-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 /* ─── Reduce motion ─────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
