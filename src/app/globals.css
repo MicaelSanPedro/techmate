@@ -154,7 +154,6 @@
 
 /* Base liquid glass material */
 .liquid-glass {
-  position: relative;
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.10) 0%,
@@ -278,7 +277,6 @@
   box-shadow:
     0 8px 32px -8px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  position: relative;
   overflow: hidden;
   transition: box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -340,7 +338,6 @@
   box-shadow:
     0 4px 16px -4px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  position: relative;
   overflow: hidden;
   transition: box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
@@ -380,7 +377,6 @@
   box-shadow:
     0 16px 48px -12px rgba(0, 0, 0, 0.6),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  position: relative;
   overflow: hidden;
 }
 .liquid-glass-panel::before {
@@ -434,7 +430,6 @@
   box-shadow:
     0 16px 48px -12px rgba(0, 0, 0, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  position: relative;
   overflow: hidden;
 }
 .liquid-glass-mobile-menu::before {
@@ -482,7 +477,6 @@
   box-shadow:
     0 8px 32px -8px rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  position: relative;
   overflow: hidden;
 }
 .glass-card::before {
