@@ -12,6 +12,7 @@ import {
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { PostCard } from "@/components/PostCard";
 import { ShareButtons } from "@/components/ShareButtons";
+import { ProseEnhancer } from "@/components/ProseEnhancer";
 import type { Metadata } from "next";
 
 interface PostPageProps {
@@ -177,6 +178,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <div className="h-px bg-gradient-to-r from-amber-500/30 via-amber-500/10 to-transparent mb-10 sm:mb-12" />
 
         {/* Post content */}
+        <ProseEnhancer />
         <div
           className="prose-custom"
           dangerouslySetInnerHTML={{ __html: contentHtml }}

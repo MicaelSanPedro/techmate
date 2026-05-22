@@ -545,11 +545,31 @@
   background-size: 100% 1px;
   background-repeat: no-repeat;
   background-position: 0 100%;
-  transition: color 0.2s, background-size 0.2s;
+  transition: color 0.2s, background-size 0.2s, gap 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
 }
 .prose-custom a:hover {
   color: #fde68a;
   background-size: 100% 2px;
+}
+.prose-custom a::after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23fbbf24' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7'/%3E%3Cpath d='M7 7h10v10'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s;
+  vertical-align: middle;
+}
+.prose-custom a:hover::after {
+  opacity: 1;
+  transform: translate(2px, -2px);
 }
 .prose-custom strong { color: #fff; font-weight: 600; }
 .prose-custom ul, .prose-custom ol { margin-bottom: 1.25em; padding-left: 1.5em; }
@@ -585,6 +605,53 @@
   border: 1px solid rgba(249, 189, 24, 0.15);
 }
 .prose-custom pre code { background: none; color: #d4c8b8; padding: 0; border: 0; }
+
+/* ─── Code copy button ───────────────── */
+.prose-custom pre .copy-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(249, 189, 24, 0.2);
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(249, 189, 24, 0.6);
+  font-size: 0.7rem;
+  font-family: inherit;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+}
+.prose-custom pre:hover .copy-btn,
+.prose-custom pre .copy-btn:focus-visible {
+  opacity: 1;
+}
+.prose-custom pre .copy-btn:hover {
+  background: rgba(249, 189, 24, 0.15);
+  color: #fbbf24;
+  border-color: rgba(249, 189, 24, 0.4);
+}
+.prose-custom pre .copy-btn .check-icon {
+  display: none;
+}
+.prose-custom pre .copy-btn.copied {
+  opacity: 1;
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: #34d399;
+}
+.prose-custom pre .copy-btn.copied .copy-icon {
+  display: none;
+}
+.prose-custom pre .copy-btn.copied .check-icon {
+  display: block;
+}
 .prose-custom img {
   border-radius: 0.85rem;
   border: 1px solid rgba(255,255,255,0.06);
