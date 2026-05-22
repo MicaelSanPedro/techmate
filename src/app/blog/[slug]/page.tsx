@@ -8,10 +8,10 @@ import {
   ArrowLeft,
   ArrowRight,
   User,
-  Share2,
 } from "lucide-react";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { PostCard } from "@/components/PostCard";
+import { ShareButtons } from "@/components/ShareButtons";
 import type { Metadata } from "next";
 
 interface PostPageProps {
@@ -137,10 +137,10 @@ export default async function PostPage({ params }: PostPageProps) {
                 <span>{frontmatter.readTime}</span>
               </div>
             </div>
-            <div className="hidden sm:flex items-center gap-2 text-xs text-white/45">
-              <Share2 className="w-3.5 h-3.5" />
-              <span>Compartilhar</span>
-            </div>
+            <ShareButtons
+              url={`https://techmate.dev/blog/${slug}`}
+              title={frontmatter.title}
+            />
           </div>
 
           {/* Tags */}
@@ -188,8 +188,13 @@ export default async function PostPage({ params }: PostPageProps) {
             Curtiu?
           </p>
           <p className="text-white/65 text-sm mb-4 sm:mb-5">
-            Compartilhe com outros devs ou explore mais artigos sobre {frontmatter.category}.
+            Compartilhe este artigo com outros devs ou explore mais sobre {frontmatter.category}.
           </p>
+          <ShareButtons
+            url={`https://techmate.dev/blog/${slug}`}
+            title={frontmatter.title}
+            className="mb-4"
+          />
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
               href={`/blog?category=${encodeURIComponent(frontmatter.category)}`}
