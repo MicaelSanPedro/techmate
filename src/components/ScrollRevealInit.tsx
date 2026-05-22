@@ -26,6 +26,7 @@ const SUBTLE_SELECTOR = [".prose-custom > p", ".prose-custom > ul", ".prose-cust
 
 export function ScrollRevealInit() {
   const pathname = usePathname();
+  const searchParams = typeof window !== "undefined" ? window.location.search : "";
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -93,7 +94,7 @@ export function ScrollRevealInit() {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
   return null;
 }

@@ -16,10 +16,10 @@ export function WelcomeScreen() {
   useEffect(() => {
     if (!isVisible) return;
 
-    const exitTimer = setTimeout(() => setPhase("exit"), 2000);
+    const exitTimer = setTimeout(() => setPhase("exit"), 3000);
     const doneTimer = setTimeout(() => {
       setIsVisible(false);
-    }, 3200);
+    }, 4200);
 
     return () => {
       clearTimeout(exitTimer);
