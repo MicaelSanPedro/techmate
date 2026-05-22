@@ -22,6 +22,7 @@ export function Navbar({ allPosts }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [categoriesInView, setCategoriesInView] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -66,8 +67,26 @@ export function Navbar({ allPosts }: NavbarProps) {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  useEffect(() => {
+    if (pathname !== "/") {
+      setCategoriesInView(false);
+      return;
+    }
+
+    const section = document.getElementById("categories");
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setCategoriesInView(entry.isIntersecting),
+      { rootMargin: "-30% 0px -60% 0px" }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [pathname]);
+
   function isActive(href: string) {
-    if (href === "/") return pathname === "/";
+    if (href === "/") return pathname === "/" && !categoriesInView;
+    if (href === "/#categories") return categoriesInView;
     if (href.startsWith("/#")) return false;
     return pathname.startsWith(href);
   }
