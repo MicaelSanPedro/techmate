@@ -21,13 +21,7 @@ Se você não usa KDE há anos, está na hora de dar uma segunda olhada. O que a
 
 O tema padrão **Breeze** foi refinado com novos ícones, cantos mais suaves e uma paleta de cores mais moderna. Mas a mudança mais notável é a introdução de **Materia** e **Sky Blue** como alternativas visuais prontas.
 
-O **accent color system** foi reformulado. Agora você pode escolher uma cor de destaque que se aplica consistentemente a botões, seleções, indicadores de progresso e highlights de texto — e funciona perfeitamente em aplicativos Qt e GTK:
-
-```bash
-# Configurar cor de destaque via linha de comando
-# No KDE Plasma 6, use as configurações do sistema:
-# Configurações do Sistema > Aparência > Cores
-```
+O **accent color system** foi reformulado. Agora você pode escolher uma cor de destaque que se aplica consistentemente a botões, seleções, indicadores de progresso e highlights de texto — e funciona perfeitamente em aplicativos Qt e GTK (basta ir em **Configurações do Sistema > Aparência > Cores**).
 
 Os **diálogos de janela** foram redesenhados com tipografia melhor, mais espaçamento entre elementos e uma hierarquia visual mais clara. Tudo parece mais polido e profissional.
 

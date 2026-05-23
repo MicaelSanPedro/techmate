@@ -22,10 +22,7 @@ Se você usa Ubuntu como seu sistema principal — seja para trabalho, desenvolv
 Parece óbvio, mas a maioria dos incidentes de segurança em Linux explora **vulnerabilidades já corrigidas** em versões mais recentes. Configure atualizações automáticas:
 
 ```bash
-# Instalar o pacote de atualizações automáticas
 sudo apt install unattended-upgrades
-
-# Configurar
 sudo dpkg-reconfigure -plow unattended-upgrades
 ```
 
@@ -34,13 +31,9 @@ Isso habilita a instalação automática de atualizações de segurança. Para m
 Verifique manualmente regularmente:
 
 ```bash
-# Atualizar lista de pacotes
 sudo apt update
-
-# Aplicar atualizações
 sudo apt upgrade -y
 
-# Verificar pacotes com atualizações de segurança pendentes
 apt list --upgradable 2>/dev/null | grep -i security
 ```
 
@@ -51,21 +44,16 @@ apt list --upgradable 2>/dev/null | grep -i security
 O **UFW** (Uncomplicated Firewall) é uma interface simplificada para o `iptables` que vem pré-instalado no Ubuntu. Por padrão, ele vem **desabilitado** — o que significa que todas as portas de rede estão abertas.
 
 ```bash
-# Habilitar UFW e bloquear tudo por padrão
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 
-# Permitir SSH (importante antes de habilitar!)
 sudo ufw allow ssh
 
-# Permitir tráfego HTTP/HTTPS se for servidor web
 sudo ufw allow http
 sudo ufw allow https
 
-# Habilitar o firewall
 sudo ufw enable
 
-# Verificar status e regras
 sudo ufw status verbose
 ```
 
@@ -78,10 +66,7 @@ sudo ufw status verbose
 Proteja seu login com **Google Authenticator** ou **LibreOTP**:
 
 ```bash
-# Instalar o módulo PAM para Google Authenticator
 sudo apt install libpam-google-authenticator
-
-# Configurar para seu usuário
 google-authenticator
 ```
 
@@ -118,15 +103,11 @@ Agora, além da senha, será necessário informar o código gerado no seu celula
 O root nunca deve fazer login diretamente. Use `sudo` para comandos administrativos:
 
 ```bash
-# Verificar se login do root está habilitado
 sudo grep "^root:" /etc/passwd
 
-# Bloquear a conta root
 sudo passwd -l root
 
-# Verificar se login SSH do root está desabilitado
 sudo grep "PermitRootLogin" /etc/ssh/sshd_config
-# Deve ser: PermitRootLogin no
 ```
 
 ---
@@ -136,13 +117,10 @@ sudo grep "PermitRootLogin" /etc/ssh/sshd_config
 O **fail2ban** monitora logs de autenticação e bloqueia automaticamente IPs que tentam múltiplos logins falhados — essencial contra ataques de força bruta:
 
 ```bash
-# Instalar
 sudo apt install fail2ban
 
-# Criar configuração local (não edite o arquivo padrão)
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 
-# Editar configuração
 sudo nano /etc/fail2ban/jail.local
 ```
 
@@ -168,7 +146,6 @@ Habilite e inicie:
 sudo systemctl enable fail2ban
 sudo systemctl start fail2ban
 
-# Verificar status
 sudo fail2ban-client status sshd
 ```
 
@@ -179,13 +156,11 @@ sudo fail2ban-client status sshd
 Use **LUKS** para criptografar partições e pendrives:
 
 ```bash
-# Criptografar um pendrive (SUBSTITUA sdb pelo dispositivo correto!)
 sudo cryptsetup luksFormat /dev/sdb
 sudo cryptsetup open /dev/sdb pendrive_seguro
 sudo mkfs.ext4 /dev/mapper/pendrive_seguro
 sudo mount /dev/mapper/pendrive_seguro /mnt/pendrive
 
-# Para desmontar e fechar
 sudo umount /mnt/pendrive
 sudo cryptsetup close pendrive_seguro
 ```
@@ -193,10 +168,8 @@ sudo cryptsetup close pendrive_seguro
 Para diretórios individuais, use **GPG** para criptografar arquivos:
 
 ```bash
-# Criptografar um arquivo
 gpg -c arquivo_sensivel.txt
 
-# Descriptografar
 gpg -d arquivo_sensivel.txt.gpg > arquivo_sensivel.txt
 ```
 
@@ -207,13 +180,10 @@ gpg -d arquivo_sensivel.txt.gpg > arquivo_sensivel.txt
 Saiba exatamente o que está rodando e escutando no seu sistema:
 
 ```bash
-# Ver todas as portas abertas
 sudo ss -tulnp
 
-# Ver serviços ativos
 systemctl list-units --type=service --state=running
 
-# Listar todos os serviços habilitados na inicialização
 systemctl list-unit-files --state=enabled
 ```
 
@@ -230,17 +200,14 @@ sudo systemctl disable --now nomedoservico
 Senhas como `123456` ou `admin` ainda são surpreendentemente comuns. Use um gerenciador de senhas como **Bitwarden** (open-source) ou **KeePassXC**:
 
 ```bash
-# Instalar Bitwarden CLI
 sudo snap install bw
 
-# Ou instalar KeePassXC
 sudo apt install keepassxc
 ```
 
 Além disso, certifique-se de ter uma senha forte para seu usuário:
 
 ```bash
-# Alterar senha com verificação de força
 passwd
 ```
 
@@ -251,13 +218,10 @@ passwd
 O **AppArmor** é um sistema de controle de acesso baseado em perfis que restringe o que cada aplicativo pode fazer:
 
 ```bash
-# Verificar status
 sudo aa-status
 
-# Verificar perfis ativos
 sudo apparmor_status
 
-# Listar perfis disponíveis
 ls /etc/apparmor.d/
 ```
 
@@ -270,10 +234,8 @@ O Ubuntu vem com perfis pré-configurados para vários serviços. Mantenha o App
 Segurança não é apenas sobre prevenir ataques — é sobre se recuperar deles. Configure backups automatizados com **Timeshift** para snapshots do sistema e **BorgBackup** para dados:
 
 ```bash
-# Timeshift (snapshots do sistema)
 sudo apt install timeshift
 
-# BorgBackup (backup incremental e criptografado)
 sudo apt install borgbackup
 ```
 

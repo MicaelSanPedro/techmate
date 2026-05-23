@@ -26,7 +26,6 @@ O **Game Mode** do Windows 11 prioriza processos de jogos sobre outros, suspende
 3. Desative **Gravação em segundo plano** (Game Bar) — a menos que você faça streams
 
 ```powershell
-# Ativar Game Mode via PowerShell
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\GameBar" -Name "AutoGameModeEnabled" -Value 1 -Type DWord
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\GameBar" -Name "ShowStartupPanel" -Value 0 -Type DWord
 ```
@@ -45,7 +44,6 @@ Os efeitos visuais do Windows 11 consomem recursos da GPU que poderiam estar ren
 Via PowerShell:
 
 ```powershell
-# Desativar efeitos visuais
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" -Name "VisualFXSetting" -Value 2 -Type DWord
 ```
 
@@ -76,7 +74,6 @@ Abra **AMD Software: Adrenalin Edition**:
 Sempre use os drivers mais recentes, mas evite versões beta para jogos competitivos:
 
 ```powershell
-# Verificar versão do driver NVIDIA via PowerShell
 nvidia-smi
 ```
 
@@ -87,13 +84,12 @@ nvidia-smi
 Muitos serviços do Windows rodam em segundo plano e podem causar stuttering em jogos:
 
 ```powershell
-# Serviços seguros para desativar (não afetam estabilidade)
 services = @(
-    "DiagTrack",          # Telemetria de diagnóstico
-    "dmwappushservice",   # Push de telemetria
-    "SysMain",            # Superfetch (controverso — teste antes)
-    "WSearch",            # Windows Search (indexação)
-    "WerSvc",             # Relatório de erros
+    "DiagTrack",
+    "dmwappushservice",
+    "SysMain",
+    "WSearch",
+    "WerSvc",
 )
 
 foreach ($svc in $services) {
@@ -111,13 +107,10 @@ foreach ($svc in $services) {
 O Windows 11 esconde o plano de **Alto Desempenho** por padrão. Ative-o:
 
 ```powershell
-# Listar planos disponíveis
 powercfg /list
 
-# Ativar plano de alto desempenho
 powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 
-# Ou criar um plano ultimate (desabilita C-States na CPU)
 powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 ```
 
@@ -126,7 +119,6 @@ powercfg -duplicatescheme 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 Para evitar que dispositivos periféricos "durmam" durante o jogo:
 
 ```powershell
-# Desativar economia de energia USB
 powercfg /SETACVALUEINDEX SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
 powercfg /SETACTIVE SCHEME_CURRENT
 ```
@@ -159,18 +151,13 @@ A BIOS é onde os ganhos mais significativos de performance podem ser encontrado
 A telemetria do Windows 11 roda constantemente em segundo plano, coletando dados e consumindo recursos:
 
 ```powershell
-# Desativar telemetria via PowerShell (Administrador)
-# Serviço de telemetria
 Stop-Service -Name "DiagTrack" -Force
 Set-Service -Name "DiagTrack" -StartupType Disabled
 
-# Tarefas agendadas de telemetria
 Get-ScheduledTask | Where-Object { $_.TaskName -like "*Microsoft*Windows*Telemetry*" } | Disable-ScheduledTask
 
-# Desativar telemetry no registro
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection" /v "AllowTelemetry" /t REG_DWORD /d 0 /f
 
-# Desativar entregas de conteúdo da Microsoft
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsConsumerFeatures" /t REG_DWORD /d 1 /f
 ```
 
@@ -181,14 +168,11 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudContent" /v "DisableWindo
 Para jogos online, a latência é crucial:
 
 ```powershell
-# Desativar Nagle Algorithm (reduz input lag em jogos online)
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\*" -Name "TcpAckFrequency" -Value 1 -Type DWord
 Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces\*" -Name "TCPNoDelay" -Value 1 -Type DWord
 
-# Desativar Wi-Fi Sense
 reg add "HKLM\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config" /v "AutoConnectAllowedOEM" /t REG_DWORD /d 0 /f
 
-# Desativar rastreamento de rede
 netsh wlan set autoconfig enabled=no
 ```
 
@@ -203,7 +187,6 @@ Reduza o número de programas que iniciam com o Windows:
 1. **Gerenciador de Tarefas** > **Inicialização** — desative tudo que não é essencial
 2. **Configurações** > **Aplicativos** > **Inicialização** — alternativa visual
 3. ```powershell
-   # Verificar programas de inicialização
    Get-CimInstance Win32_StartupCommand | Select-Object Name, Command, Location
    ```
 

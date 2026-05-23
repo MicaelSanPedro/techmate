@@ -91,20 +91,7 @@ Aqui é onde a mágica acontece. Você vai pedir para a Z.ai criar o site do zer
 
 ### Pedindo a criação do site
 
-Digite algo assim para a Z.ai:
-
-```
-Crie um site de blog tech usando Next.js com as seguintes características:
-- Tema escuro com cores em amber/dourado
-- Homepage com hero section e cards de categorias
-- Página de blog com filtro por categoria
-- Posts escritos em Markdown
-- Navbar com navegação e busca
-- Footer com links úteis
-- Design responsivo e moderno
-```
-
-Quanto mais detalhes você der, melhor o resultado. A Z.ai vai:
+Descreva o site que você quer criando, incluindo cores, layout, seções e funcionalidades desejadas. Quanto mais detalhes você der, melhor o resultado. A Z.ai vai:
 1. Escrever todo o código do projeto (Next.js, React, Tailwind CSS)
 2. Estruturar as pastas e arquivos
 3. Criar componentes, páginas e estilos
@@ -129,27 +116,14 @@ Depois que a Z.ai criar o projeto, você precisa conectar ao seu GitHub para ver
 
 ### Fazendo o clone e configuração
 
-A Z.ai pode fazer tudo isso sozinha. Basta pedir:
-
-```
-Clone meu repositório techmate do GitHub para eu poder fazer alterações.
-O token é: ghp_SEU_TOKEN_AQUI
-```
-
-A Z.ai vai:
+A Z.ai pode fazer tudo isso sozinha — basta informar o token. Ela vai:
 1. Clonar o repositório para o servidor
 2. Configurar o remote com autenticação
 3. Verificar que tudo está funcionando
 
 ### Fazendo o primeiro commit
 
-Depois que a Z.ai terminar de criar ou modificar o site, ela pode fazer commit e push diretamente:
-
-```
-Faça commit e push de todas as alterações
-```
-
-Ela vai executar os comandos `git add`, `git commit` e `git push` automaticamente, e em segundos seu código estará no GitHub.
+Depois que a Z.ai terminar de criar ou modificar o site, ela pode fazer commit e push diretamente — executando `git add`, `git commit` e `git push` automaticamente. Em segundos seu código estará no GitHub.
 
 ---
 
@@ -206,54 +180,23 @@ Tudo isso em **menos de 2 minutos**.
 ### Exemplos de alterações que você pode pedir
 
 **Design:**
-```
-Troca a cor do destaque de azul pra verde esmeralda
-```
-
-```
-Adiciona uma animação suave de scroll nas seções do site
-```
-
-```
-Muda a fonte do heading para uma mais moderna
-```
+- "Troca a cor do destaque de azul pra verde esmeralda"
+- "Adiciona uma animação suave de scroll nas seções do site"
+- "Muda a fonte do heading para uma mais moderna"
 
 **Funcionalidades:**
-```
-Adiciona um botão de compartilhar nas redes sociais nos posts
-```
-
-```
-Cria uma página de busca que filtra posts por título e tag
-```
-
-```
-Adiciona modo escuro/claro com toggle no navbar
-```
+- "Adiciona um botão de compartilhar nas redes sociais nos posts"
+- "Cria uma página de busca que filtra posts por título e tag"
+- "Adiciona modo escuro/claro com toggle no navbar"
 
 **Conteúdo:**
-```
-Cria um novo post sobre como configurar Docker no WSL
-```
-
-```
-Corrige o texto do about, adiciona mais detalhes sobre mim
-```
-
-```
-Adiciona uma seção de newsletter na homepage
-```
+- "Cria um novo post sobre como configurar Docker no WSL"
+- "Corrige o texto do about, adiciona mais detalhes sobre mim"
+- "Adiciona uma seção de newsletter na homepage"
 
 ### A Z.ai escreve os posts também
 
-Sim, ela pode escrever conteúdo de blog. Peça algo como:
-
-```
-Escreve um post completo sobre como usar Neovim como IDE
-em 2025, com exemplos de código e dicas práticas.
-```
-
-Ela vai gerar um arquivo Markdown com frontmatter (título, data, categoria, tags) e conteúdo formatado, salvar no diretório de posts e fazer o commit.
+Sim, ela pode escrever conteúdo de blog — basta descrever o tema, tom e formato desejado. Ela vai gerar um arquivo Markdown com frontmatter (título, data, categoria, tags) e conteúdo formatado, salvar no diretório de posts e fazer o commit.
 
 ---
 
@@ -285,14 +228,7 @@ Sobre o token do GitHub que você usa na Z.ai:
 
 ### Performance
 
-Peça para a Z.ai otimizar o site:
-
-```
-Otimiza o site para Lighthouse: melhora o score de performance,
-accessibilidade e SEO
-```
-
-Ela pode configurar lazy loading de imagens, otimizar fontes, adicionar metadata para SEO e muito mais.
+Peça para a Z.ai otimizar o site e ela pode configurar lazy loading de imagens, otimizar fontes, adicionar metadata para SEO e muito mais.
 
 ---
 
@@ -311,17 +247,7 @@ A Z.ai pode criar API routes no Next.js para funcionalidades como:
 
 ### Integrando serviços
 
-```
-Adiciona Google Analytics ao site
-```
-
-```
-Configura o Commento como sistema de comentários nos posts
-```
-
-```
-Integra o Discord webhook para notificar novos posts
-```
+Você pode pedir para a Z.ai integrar serviços como Google Analytics, Commento (sistema de comentários) ou Discord webhooks para notificações de novos posts.
 
 ### Deploy em produção vs preview
 

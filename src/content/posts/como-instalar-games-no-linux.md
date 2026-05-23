@@ -26,16 +26,12 @@ A Steam é, sem dúvida, a melhor forma de jogar no Linux. A Valve investiu pesa
 ### Instalando a Steam
 
 ```bash
-# Ubuntu/Debian/Mint
 sudo apt install steam-installer
 
-# Fedora
 sudo dnf install steam
 
-# Arch Linux
 sudo pacman -S steam
 
-# Flatpak (funciona em qualquer distribuição)
 flatpak install flathub com.valvesoftware.Steam
 ```
 
@@ -56,10 +52,8 @@ A Steam vem com o Proton padrão, mas você pode instalar versões experimentais
 O GE-Proton inclui correções e patches que o Proton oficial ainda não tem. Instalar é simples:
 
 ```bash
-# Instale o ProtonUp-Qt
 flatpak install flathub net.davidotek.pupgui2
 
-# Ou via pacote nativo no Arch:
 sudo pacman -S protonup-qt
 ```
 
@@ -90,18 +84,14 @@ Lutris é um gerenciador de jogos open-source que automatiza a instalação e co
 ### Instalando o Lutris
 
 ```bash
-# Ubuntu/Debian
 sudo add-apt-repository ppa:lutris-team/lutris
 sudo apt update
 sudo apt install lutris
 
-# Fedora
 sudo dnf install lutris
 
-# Arch Linux
 sudo pacman -S lutris
 
-# Flatpak (recomendado para compatibilidade máxima)
 flatpak install flathub net.lutris.Lutris
 ```
 
@@ -142,13 +132,10 @@ O **Heroic Games Launcher** é uma alternativa open-source ao Epic Games Launche
 ### Instalando o Heroic
 
 ```bash
-# Flatpak (melhor opção)
 flatpak install flathub com.heroicgameslauncher.hgl
 
-# Via npm (se tiver Node.js)
 npm install -g heroic
 
-# Arch Linux (AUR)
 yay -S heroic-games-launcher-bin
 ```
 
@@ -178,10 +165,8 @@ yay -S heroic-games-launcher-bin
 ### Instalando o Bottles
 
 ```bash
-# Flatpak
 flatpak install flathide com.usebottles.bottles
 
-# Arch Linux
 sudo pacman -S bottles
 ```
 
@@ -264,13 +249,10 @@ Os drivers são a base de uma boa experiência de gaming no Linux. Sem drivers c
 
 **NVIDIA (placas dedicadas):**
 ```bash
-# Ubuntu/Debian — Driver proprietário
 sudo apt install nvidia-driver-550
 
-# Fedora
 sudo dnf install akmod-nvidia
 
-# Arch Linux
 sudo pacman -S nvidia nvidia-utils
 ```
 
@@ -278,18 +260,14 @@ sudo pacman -S nvidia nvidia-utils
 
 **AMD (placas dedicadas e integradas):**
 ```bash
-# O driver Mesa já vem pré-instalado na maioria das distros
-# Para garantir a versão mais recente:
-sudo apt install mesa-vulkan-drivers    # Ubuntu/Debian
-sudo dnf install mesa-vulkan-drivers    # Fedora
+sudo apt install mesa-vulkan-drivers
+sudo dnf install mesa-vulkan-drivers
 ```
 
 O driver Mesa da AMD para Vulkan (RADV) tem performance excelente, muitas vezes superior ao driver proprietário no Windows.
 
 **Intel (placas integradas):**
 ```bash
-# Drivers já inclusos no kernel e Mesa
-# Para gráficos Arc (dedicados):
 sudo apt install mesa-vulkan-drivers intel-media-driver
 ```
 
@@ -298,12 +276,10 @@ sudo apt install mesa-vulkan-drivers intel-media-driver
 O Vulkan é a API gráfica que o Proton usa para renderizar jogos. Ter a camada Vulkan atualizada é essencial:
 
 ```bash
-# Verifique se o Vulkan está instalado
 vulkaninfo --summary
 
-# Instale se necessário
-sudo apt install vulkan-tools libvulkan1    # Ubuntu/Debian
-sudo dnf install vulkan-loader              # Fedora
+sudo apt install vulkan-tools libvulkan1
+sudo dnf install vulkan-loader
 ```
 
 ### Compatibilidade Anti-Cheat
@@ -326,24 +302,18 @@ Jogos como **Fortnite**, **Apex Legends**, **Destiny 2** e **Fall Guys** funcion
 Aqui estão os comandos mais úteis para gerenciar jogos no Linux:
 
 ```bash
-# Verificar info do sistema Vulkan
 vulkaninfo --summary
 
-# Forçar versão do Proton para um jogo específico
 STEAM_COMPAT_DATA_PATH="~/.steam/compatibilitytools.d/GE-Proton" \
   protontricks launch <app-id> <comando>
 
-# Verificar qual versão do Wine está sendo usada
 wine --version
 
-# Kill process do Wine travado
 wineserver -k
 
-# Limpar prefixos Wine corrompidos
 rm -rf ~/.wine
 rm -rf ~/.local/share/lutris/runtime/wine
 
-# Atualizar GE-Proton via ProtonUp-Qt CLI
 protonup-qt --install GE-Proton
 ```
 

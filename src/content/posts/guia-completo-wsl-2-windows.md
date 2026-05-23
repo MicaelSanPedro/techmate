@@ -32,22 +32,17 @@ Esse único comando instala o WSL 2, o Ubuntu como distribuição padrão e habi
 Se preferir outra distro:
 
 ```powershell
-# Listar distribuições disponíveis
 wsl --list --online
 
-# Instalar Fedora, por exemplo
 wsl --install -d Fedora
 ```
 
 ### Verificando a instalação
 
 ```bash
-# Dentro do WSL
 uname -r
-# Saída: 5.15.x-microsoft-standard-WSL2 (kernel Linux real)
 
 cat /etc/os-release
-# Mostra informações da distribuição instalada
 ```
 
 ---
@@ -60,10 +55,10 @@ Crie o arquivo `%USERPROFILE%\.wslconfig` para configurar o comportamento global
 
 ```ini
 [wsl2]
-memory=8GB          # Limite de RAM (padrão: 50% da memória)
-processors=4        # Número de CPUs virtuais
-swap=2GB            # Tamanho do swap
-localhostForwarding=true  # Encaminhar localhost automaticamente
+memory=8GB
+processors=4
+swap=2GB
+localhostForwarding=true
 ```
 
 ### Performance do sistema de arquivos
@@ -71,11 +66,9 @@ localhostForwarding=true  # Encaminhar localhost automaticamente
 O WSL 2 tem uma diferença crucial de performance entre acessar arquivos **dentro** do sistema de arquivos Linux (`/home/`) versus arquivos no sistema de arquivos Windows (`/mnt/c/`). **Sempre trabalhe dentro do diretório home do WSL** para melhor performance:
 
 ```bash
-# ✅ Rápido — sistema de arquivos Linux nativo
 cd ~/projetos/meu-app
 npm install
 
-# ❌ Lento — sistema de arquivos Windows via 9P
 cd /mnt/c/Users/voce/projetos/meu-app
 npm install
 ```
@@ -110,7 +103,6 @@ As extensões são instaladas separadamente para o WSL. Quando uma extensão pre
 A melhor experiência Docker no Windows é executar o **Docker Engine diretamente dentro do WSL**, sem necessidade do Docker Desktop:
 
 ```bash
-# Instalar Docker no WSL
 sudo apt update
 sudo apt install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -126,13 +118,10 @@ echo \
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io
 
-# Adicionar usuário ao grupo docker
 sudo usermod -aG docker $USER
 
-# Iniciar o serviço Docker
 sudo service docker start
 
-# Testar
 docker run hello-world
 ```
 
@@ -149,10 +138,8 @@ sudo service docker start 2>/dev/null
 O WSL 2 suporta **CUDA** nativamente, permitindo treinamento de modelos de machine learning e computação GPU sem dual-boot:
 
 ```bash
-# Verificar suporte a CUDA
 nvidia-smi
 
-# Instalar PyTorch com CUDA
 pip install torch torchvision torchaudio --index-url \
   https://download.pytorch.org/whl/cu121
 ```
@@ -170,7 +157,6 @@ O WSL 2 possui seu próprio endereço IP, mas o **localhost forwarding** (habili
 Para expor um serviço WSL para outros dispositivos na rede:
 
 ```powershell
-# No PowerShell (como Administrador)
 netsh interface portproxy add v4tov4 listenport=3000 listenaddress=0.0.0.0 connectport=3000 connectaddress=$(wsl hostname -I)
 ```
 
@@ -187,23 +173,18 @@ wsl --update --pre-release
 ### Gerenciar múltiplas distribuições
 
 ```powershell
-# Listar instaladas
 wsl --list --verbose
 
-# Definir padrão
 wsl --set-default Ubuntu
 
-# Desligar todas as instâncias
 wsl --shutdown
 ```
 
 ### Backup e exportação
 
 ```powershell
-# Exportar uma distribuição
 wsl --export Ubuntu backup-ubuntu.tar
 
-# Importar em outro computador
 wsl --import Ubuntu D:\wsl\Ubuntu backup-ubuntu.tar
 ```
 
