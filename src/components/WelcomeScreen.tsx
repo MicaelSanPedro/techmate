@@ -30,12 +30,13 @@ export function getUsername(): string | null {
 
 export function WelcomeScreen() {
   const [mounted, setMounted] = useState(false);
-  const [phase, setPhase] = useState<"enter" | "ask" | "greet" | "exit">(
+  const [phase, setPhase] = useState<"enter" | "ask" | "exit">(
     "enter"
   );
   const [isVisible, setIsVisible] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [userName, setUserName] = useState("");
+  const [isReturning, setIsReturning] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Hydrate from localStorage
@@ -43,14 +44,12 @@ export function WelcomeScreen() {
     setMounted(true);
     const stored = getStoredName();
     if (stored) {
-      // Returning user — skip name prompt
       setIsVisible(true);
       setUserName(stored);
-      setPhase("enter");
+      setIsReturning(true);
     } else {
-      // First visit — show splash then ask name
       setIsVisible(true);
-      setPhase("enter");
+      setIsReturning(false);
     }
   }, []);
 
@@ -59,16 +58,10 @@ export function WelcomeScreen() {
     if (!mounted || !isVisible) return;
 
     if (phase === "enter") {
-      // Check if we already have a name
-      const stored = getStoredName();
-      if (stored) {
-        // Skip to greet + auto-exit for returning users
-        const greetTimer = setTimeout(() => setPhase("greet"), 1500);
-        const exitTimer = setTimeout(() => setPhase("exit"), 3500);
-        return () => {
-          clearTimeout(greetTimer);
-          clearTimeout(exitTimer);
-        };
+      if (isReturning) {
+        // Returning user — show welcome back then exit
+        const exitTimer = setTimeout(() => setPhase("exit"), 2800);
+        return () => clearTimeout(exitTimer);
       } else {
         // New user — go to name input after splash
         const askTimer = setTimeout(() => setPhase("ask"), 1800);
@@ -76,16 +69,11 @@ export function WelcomeScreen() {
       }
     }
 
-    if (phase === "greet") {
-      const exitTimer = setTimeout(() => setPhase("exit"), 2200);
-      return () => clearTimeout(exitTimer);
-    }
-
     if (phase === "exit") {
       const doneTimer = setTimeout(() => setIsVisible(false), 900);
       return () => clearTimeout(doneTimer);
     }
-  }, [phase, mounted, isVisible]);
+  }, [phase, mounted, isVisible, isReturning]);
 
   // Auto-focus input when ask phase starts
   useEffect(() => {
@@ -100,7 +88,8 @@ export function WelcomeScreen() {
     if (!trimmed) return;
     storeName(trimmed);
     setUserName(trimmed);
-    setPhase("greet");
+    setIsReturning(true);
+    setPhase("exit");
   };
 
   // Prevent flash on SSR
@@ -110,8 +99,6 @@ export function WelcomeScreen() {
   const isExiting = phase === "exit";
   const showSplash = phase === "enter";
   const showAsk = phase === "ask";
-  const showGreet = phase === "greet";
-  const isReturningUser = !!getStoredName();
 
   return (
     <div
@@ -132,18 +119,16 @@ export function WelcomeScreen() {
       {/* Content */}
       <div className="welcome-content">
         {/* Logo */}
-        <div
-          className={`welcome-logo-wrap ${showAsk ? "welcome-logo-small" : ""} ${showGreet ? "welcome-logo-small" : ""}`}
-        >
+        <div className="welcome-logo-wrap">
           <Logo
-            className={`w-20 h-20 sm:w-24 sm:h-24 ${showAsk || showGreet ? "!w-12 !h-12 sm:!w-14 sm:!h-14" : ""}`}
+            className={`w-20 h-20 sm:w-24 sm:h-24`}
             glow
             variant="amber"
           />
         </div>
 
-        {/* ── Splash phase ── */}
-        {showSplash && !isReturningUser && (
+        {/* ── New user splash ── */}
+        {showSplash && !isReturning && (
           <div className="welcome-text-group">
             <h1 className="welcome-title">
               <span className="welcome-title--tech">Tech</span>
@@ -153,15 +138,15 @@ export function WelcomeScreen() {
           </div>
         )}
 
-        {/* ── Returning user splash ── */}
-        {showSplash && isReturningUser && (
+        {/* ── Returning user ── */}
+        {showSplash && isReturning && (
           <div className="welcome-text-group">
             <h1 className="welcome-title">
               <span className="welcome-title--tech">Bem-vindo de volta, </span>
+              <span className="welcome-title--mate shimmer-text">{userName}</span>
+              <span className="welcome-title--tech">!</span>
             </h1>
-            <p className="welcome-tagline">
-              <span className="shimmer-text">{userName}</span>
-            </p>
+            <p className="welcome-tagline">Bom te ver por aqui</p>
           </div>
         )}
 
@@ -191,18 +176,6 @@ export function WelcomeScreen() {
                 Entrar
               </button>
             </form>
-          </div>
-        )}
-
-        {/* ── Greet phase ── */}
-        {showGreet && (
-          <div className="welcome-text-group welcome-greet-section">
-            <h1 className="welcome-title welcome-greet-title">
-              Bem-vindo,{" "}
-              <span className="shimmer-text">{userName}</span>
-              <span className="welcome-title--tech">!</span>
-            </h1>
-            <p className="welcome-tagline">Bom te ver por aqui</p>
           </div>
         )}
 
