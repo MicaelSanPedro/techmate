@@ -18,7 +18,7 @@ export function Logo({ className = "w-10 h-10", glow = false }: LogoProps) {
       alt="TechMate"
       width={1536}
       height={1024}
-      className={`object-contain ${className}`}
+      className={`object-cover ${className}`}
       style={
         glow
           ? { filter: "drop-shadow(0 0 12px rgba(249, 189, 24, 0.45))" }
