@@ -8,6 +8,7 @@ import { ScrollRevealInit } from "@/components/ScrollRevealInit";
 import { BokehParticles } from "@/components/BokehParticles";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { ThemeSync } from "@/components/ThemeSync";
 import { getAllPosts } from "@/lib/posts";
 
 const geistSans = Geist({
@@ -80,6 +81,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${jetbrainsMono.variable} font-[family-name:var(--font-geist-sans)] antialiased`}
       >
+        <ThemeSync />
         <div className="site-backdrop" aria-hidden>
           {/* Grid background */}
           <div className="grid-bg" />
