@@ -307,13 +307,10 @@ export function Navbar({ allPosts }: NavbarProps) {
             />
           </div>
 
-          {/* Divider */}
-          <div className="mobile-search-divider shrink-0" aria-hidden />
-
           {/* Hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center w-8 h-8 shrink-0"
+            className="flex items-center justify-center w-8 h-8 shrink-0 ml-1 mr-0.5"
             aria-label="Abrir menu"
             type="button"
           >
