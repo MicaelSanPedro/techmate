@@ -9,6 +9,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   const [transitionKey, setTransitionKey] = useState(pathname);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     setDisplayChildren(children);
     setTransitionKey(pathname);
   }, [pathname, children]);
