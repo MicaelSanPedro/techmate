@@ -310,7 +310,7 @@ export function Navbar({ allPosts }: NavbarProps) {
           {/* Hamburger */}
           <button
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center w-8 h-8 shrink-0 ml-1 mr-0.5"
+            className="flex items-center justify-center w-8 h-8 shrink-0 ml-1 mr-0.5 border-0 bg-transparent outline-none appearance-none"
             aria-label="Abrir menu"
             type="button"
           >

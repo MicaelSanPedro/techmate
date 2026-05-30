@@ -2368,17 +2368,16 @@ html:not(.dark) .mouse-orb-trail {
   width: 170px;
   border-radius: 9999px;
   background: rgba(0, 0, 0, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: none;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow:
     0 8px 32px -4px rgba(0, 0, 0, 0.5),
     0 2px 8px -2px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
   overflow: hidden;
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s ease,
               box-shadow 0.3s ease;
 }
 
@@ -2405,11 +2404,10 @@ html:not(.dark) .mouse-orb-trail {
 }
 
 .mobile-search-bar:focus-within {
-  border-color: rgba(249, 189, 24, 0.35);
   box-shadow:
     0 8px 40px -4px rgba(249, 189, 24, 0.2),
     0 2px 8px -2px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    inset 0 0 0 1px rgba(249, 189, 24, 0.3);
 }
 
 .mobile-search-divider {
