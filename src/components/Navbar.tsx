@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Search as SearchIcon, User, Settings, X, Heart } from "lucide-react";
+import { ArrowRight, Search as SearchIcon, User, Settings, X, Heart, LogOut } from "lucide-react";
 import { AuthButton } from "@/components/AuthButton";
 import { openSignInModal } from "@/components/SignInModal";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { Logo } from "@/components/Logo";
 import { SearchBar } from "@/components/SearchBar";
 import type { PostSummary } from "@/lib/posts";
@@ -40,6 +40,26 @@ function MobileLoginButton({ onSignIn, setMobileOpen, delay }: { onSignIn: () =>
         <span className="mobile-menu-link-text">Entrar</span>
       </div>
       <ArrowRight className="w-4 h-4 opacity-40" />
+    </button>
+  );
+}
+
+function MobileLogoutButton({ setMobileOpen, delay }: { setMobileOpen: (v: boolean) => void; delay: number }) {
+  const { data: session } = useSession();
+
+  if (!session?.user) return null;
+
+  return (
+    <button
+      onClick={() => { setMobileOpen(false); signOut({ callbackUrl: "/" }); }}
+      className="mobile-menu-link"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="flex items-center gap-3">
+        <LogOut className="w-4 h-4 text-rose-400/70" />
+        <span className="mobile-menu-link-text">Sair da conta</span>
+      </div>
+      <LogOut className="w-4 h-4 opacity-40" />
     </button>
   );
 }
@@ -447,8 +467,9 @@ export function Navbar({ allPosts }: NavbarProps) {
                 <ArrowRight className="w-4 h-4 opacity-40" />
               </Link>
 
-              {/* Mobile login button */}
+              {/* Mobile login / logout buttons */}
               <MobileLoginButton onSignIn={() => openSignInModal()} setMobileOpen={setMobileOpen} delay={navLinks.length * 80 + 180} />
+              <MobileLogoutButton setMobileOpen={setMobileOpen} delay={navLinks.length * 80 + 260} />
             </div>
 
             <div className="mobile-menu-cta" style={{ animationDelay: `${navLinks.length * 80 + 200}ms` }}>
