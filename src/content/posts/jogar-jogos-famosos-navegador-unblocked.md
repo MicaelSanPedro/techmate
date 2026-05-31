@@ -15,7 +15,7 @@ Todo mundo ja passou por isso: aula de historia, professor monotono, Chromebook 
 
 Nao estamos falando de jogos de smartphone adaptations ou versoes simplificadas. Estamos falando de jogos completos como **Granny**, **Slope**, **1v1.LOL**, **Run 3**, **Tetris**, **Minecraft Classic** e centenas de outros -- tudo rodando dentro de uma pagina web, sem download, sem instalacao, sem precisar de permissao.
 
-Neste artigo, vou mostrar os melhores sites de **unblocked games**, explicar por que a escola nao consegue bloquear essa categoria de jogos, e dar dicas de quais jogos valem a pena jogar.
+Neste artigo, vou te mostrar um site especifico que funciona na escola, explicar por que o bloqueio nao pega, e dar dicas de quais jogos valem a pena jogar.
 
 ---
 
@@ -47,56 +47,21 @@ A realidade e que existe uma comunidade gigante (milhoes de estudantes ao redor 
 
 ---
 
-## Os melhores sites de unblocked games em 2025/2026
+## O site que voce precisa: Unblocked Games - Classroom Resources
 
-Aqui estao os sites mais confiaveis e atualizados para jogar na escola:
+Existe um site que se destaca entre todos os outros pela simplicidade e confiabilidade: o **Unblocked Games - Classroom Resources**.
 
-### 1. UBG77 (ubg77.github.io)
+**Link:** [https://sites.google.com/view/drive-u-7-home/home](https://sites.google.com/view/drive-u-7-home/home)
 
-Um dos mais populares e estaveis. Hospedado no GitHub Pages, o que ja dificulta o bloqueio. Tem uma biblioteca enorme com mais de 500 jogos, incluindo os mais pedidos.
+Por que esse site e tao bom? Por causa de tres motivos simples:
 
-**Destaques:**
-- Granny e Granny Chapter 2
-- 1v1.LOL
-- Slope e Slope 2
-- Retro Bowl
-- Cookie Clicker
-- Drift Hunters
-- Moto X3M
+1. **Esta hospedado no Google Sites** (`sites.google.com`) -- a escola nunca vai bloquear o Google Sites porque depende dele para o Google Classroom, Google Docs e todo o ecossistema educacional do Google. Bloquear o Google Sites seria como bloquear a internet inteira na perspectiva da escola.
 
-**Por que funciona:** Hospedado no GitHub Pages (github.io), que raramente e bloqueado porque a escola usa GitHub para aulas de programacao.
+2. **Tem um catalogo enorme de jogos** -- dezenas dos jogos mais populares da web, incluindo Granny, Slope, Run 3, 1v1.LOL, Retro Bowl e muito mais, tudo organizado e facil de encontrar.
 
-### 2. Unblocked Games 66 (classroom6x.gitlab.io)
+3. **Interface limpa e sem complicacao** -- voce abre o link, escolhe o jogo, e joga. Nao tem popup, nao tem anuncio invasivo, nao precisa criar conta nem nada.
 
-Classico dos unblocked games. A versao original foi bloqueada ha anos, mas a comunidade mantem espelhos atualizados em plataformas como GitLab Pages.
-
-**Destaques:**
-- Run 3
-- Happy Wheels
-- Basketball Stars
-- Zombs Royale
-- Shell Shockers
-
-### 3. Google Sites (sites.google.com)
-
-Muitos estudantes criam sites personalizados dentro do Google Sites com jogos embutidos usando iframes. Como o dominio e `sites.google.com`, a escola nao consegue bloquear sem atrapalhar o Google Classroom.
-
-Para encontrar esses sites, basta pesquisar no Google: `site:sites.google.com "unblocked games" + nome do jogo`.
-
-### 4. Classroom 6x (classroom-6x.org)
-
-Novo e bem otimizado. Tem interface limpa, carregamento rapido e catalogo organizado por categoria.
-
-**Destaques:**
-- Fall Guys (versao web)
-- Among Us (versao web)
-- Crossy Road
-- Smash Karts
-- Stumble Guys
-
-### 5. Poki Unblocked (via proxy)
-
-O Poki e um dos maiores sites de jogos do mundo, mas geralmente e bloqueado. A solucao e acessar via um proxy web e carregar os jogos do Poki atraves dele.
+E basicamente o tipo de site que se camufla como recurso educacional no Google Sites, quando na verdade e um portal de jogos completo.
 
 ---
 
@@ -106,8 +71,8 @@ O Poki e um dos maiores sites de jogos do mundo, mas geralmente e bloqueado. A s
 
 ### Como jogar Granny na escola
 
-1. Acesse um site de unblocked games (como o UBG77)
-2. Procure por "Granny" na barra de busca
+1. Acesse o [Unblocked Games - Classroom Resources](https://sites.google.com/view/drive-u-7-home/home)
+2. Procure por "Granny" na lista de jogos ou na barra de busca
 3. Clique no jogo e aguarde o carregamento
 4. Use os controles na tela para se mover, interagir com objetos e escapar da Granny
 
@@ -183,31 +148,17 @@ Juntos, esses tres pilares permitem que jogos complexos rodem dentro de uma pagi
 
 ---
 
-## Dicas para encontrar jogos quando os sites estao bloqueados
+## Se o site estiver bloqueado (raro, mas possivel)
 
-Se todos os sites acima estiverem bloqueados na sua escola, aqui vao estrategias que funcionam:
+Embora seja extremamente raro o Google Sites ser bloqueado, se por algum motivo o link nao funcionar na sua escola, existem duas alternativas simples:
 
-### 1. Pesquise no Google com filtros avancados
+### 1. Bookmarks em casa
 
-Use a busca do Google para encontrar jogos em sites que nao estao bloqueados:
-
-```
-"granny game" site:github.io
-"unblocked slope" site:gitlab.io
-"1v1.lol unblocked" site:google.com
-```
+Em casa, abra o [Unblocked Games - Classroom Resources](https://sites.google.com/view/drive-u-7-home/home) e salve como favorito no seu Google Account. Na escola, os favoritos sincronizam automaticamente e voce pode acessar direto.
 
 ### 2. Use proxy web
 
-Acesse um proxy (como Hidester ou CroxyProxy) e carregue o site de jogos atraves dele. O filtro so ve voce acessando o dominio do proxy.
-
-### 3. Bookmarks em casa
-
-Em casa, abra os sites de unblocked games e salve os links como favoritos no seu Google Account. Na escola, os favoritos sincronizam automaticamente e voce pode acessar direto.
-
-### 4. URLs encurtadas
-
-Alguns sites oferecem URLs encurtadas que nao estao na lista negra. Pesquise por "ubg77 link" ou "classroom6x link" e teste as alternativas.
+Acesse um proxy (como Hidester ou CroxyProxy) e cole o link do site. O filtro so ve voce acessando o dominio do proxy. O artigo sobre [proxy web](/blog/como-acessar-sites-bloqueados-proxy) explica isso em detalhes.
 
 ---
 
@@ -228,8 +179,6 @@ Se a sua escola usa Goguardian ou Securly com monitoramento de tela, aqui vao di
 
 ## Conclusao
 
-Os unblocked games existem porque existe uma limitacao tecnica fundamental nos filtros de conteudo das escolas: e impossivel bloquear todo conteudo de jogos na web sem bloquear a internet inteira. Sites hospedados em plataformas legitimas como GitHub Pages, GitLab Pages e Google Sites, com dominios que mudam constantemente, passam pelos filtros como sites comuns.
+O [Unblocked Games - Classroom Resources](https://sites.google.com/view/drive-u-7-home/home) funciona porque explora a maior fragilidade dos filtros da escola: a dependencia do Google Sites. Jogos como Granny, Slope, 1v1.LOL e centenas de outros funcionam surpreendentemente bem no navegador, usando HTML5, WebGL e JavaScript -- tecnologias que qualquer Chromebook moderno suporta nativamente. Nao precisa baixar nada, nao precisa de permissao, e nao precisa de Java ou Flash.
 
-Jogos como Granny, Slope, 1v1.LOL e centenas de outros funcionam surpreendentemente bem no navegador, usando HTML5, WebGL e JavaScript -- tecnologias que qualquer Chromebook moderno suporta nativamente. Nao precisa baixar nada, nao precisa de permissao, e nao precisa de Java ou Flash.
-
-A guerra entre alunos e filtros de conteudo vai continuar indefinidamente. Enquanto existir um filtro bloqueando, existem dez novos sites de unblocked games nascendo. Aprenda a usar as ferramentas certas, jogue com responsabilidade, e principalmente -- nao se deixe pegar.
+Salva o link, abre quando quiser jogar, e pronto. Simples assim.
