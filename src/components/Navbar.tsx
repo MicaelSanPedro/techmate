@@ -69,9 +69,9 @@ export function Navbar({ allPosts }: NavbarProps) {
   const [mobileSearchActive, setMobileSearchActive] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [categoriesInView, setCategoriesInView] = useState(false);
-  const { data: session } = useSession();
-  const userName = session?.user?.name || session?.user?.login || null;
-  const avatarUrl = session?.user?.image || null;
+  const { data: session, status: authStatus } = useSession();
+  const userName = (authStatus === "authenticated" && session?.user) ? (session.user.name || session.user.login || null) : null;
+  const avatarUrl = (authStatus === "authenticated" && session?.user?.image) ? session.user.image : null;
   const [mobileQuery, setMobileQuery] = useState("");
   const [mobileResults, setMobileResults] = useState<PostSummary[]>([]);
   const pathname = usePathname();

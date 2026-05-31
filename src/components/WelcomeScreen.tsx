@@ -27,22 +27,32 @@ export function WelcomeScreen() {
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [displayPhoto, setDisplayPhoto] = useState<string | null>(null);
   const signInAttempted = useRef(false);
+  const prevStatus = useRef(status);
 
-  // Hydrate
+  // Hydrate — only act once session status is resolved
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Handle first visit (open modal) and welcome screen logic
+  useEffect(() => {
+    if (!mounted) return;
+
+    // Wait until NextAuth has resolved the session
+    if (status === "loading") return;
+
     const welcomed = hasWelcomed();
 
     if (welcomed) {
-      // Returning user — show splash if logged in
-      if (session?.user) {
+      // Returning user — show welcome splash if logged in
+      if (status === "authenticated" && session?.user && !showWelcome) {
         setDisplayName(session.user.name || session.user.login || null);
         setDisplayPhoto(session.user.image || null);
         setShowWelcome(true);
         setIsVisible(true);
         setPhase("enter");
       }
-      // Not logged in + already welcomed = no welcome screen ever
+      // Not logged in + already welcomed = no welcome screen
     } else {
       // First visit — open login modal once
       if (!signInAttempted.current) {
@@ -52,8 +62,8 @@ export function WelcomeScreen() {
         setTimeout(() => openSignInModal(), 800);
       }
 
-      // Listen for session to appear (user just logged in)
-      if (session?.user) {
+      // If user is authenticated (just logged in via modal), show welcome
+      if (status === "authenticated" && session?.user && !showWelcome) {
         setDisplayName(session.user.name || session.user.login || null);
         setDisplayPhoto(session.user.image || null);
         setShowWelcome(true);
@@ -62,22 +72,9 @@ export function WelcomeScreen() {
         markWelcomed();
       }
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // React to session changes (login after first mount)
-  useEffect(() => {
-    if (!mounted) return;
-
-    // If user logs in (from any page, including after dismissing modal)
-    if (session?.user && !showWelcome) {
-      setDisplayName(session.user.name || session.user.login || null);
-      setDisplayPhoto(session.user.image || null);
-      setShowWelcome(true);
-      setIsVisible(true);
-      setPhase("enter");
-      markWelcomed();
-    }
-  }, [mounted, session?.user, showWelcome]);
+    prevStatus.current = status;
+  }, [mounted, status, session?.user, showWelcome]);
 
   // Progress bar
   useEffect(() => {

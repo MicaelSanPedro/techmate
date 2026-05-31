@@ -1,14 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
 import { useFavorites } from "@/components/FavoritesProvider";
 import { openSignInModal } from "@/components/SignInModal";
 
 export function AuthButton() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { favorites } = useFavorites();
+
+  // Avoid hydration mismatch — render a neutral placeholder until we know session state
+  if (status === "loading") {
+    return (
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium
+                     bg-white/[0.04] border border-white/[0.08] text-white/30">
+        <span className="w-3.5 h-3.5 rounded-full bg-white/10 animate-pulse" />
+        <span className="hidden sm:inline">...</span>
+      </div>
+    );
+  }
 
   if (!session?.user) {
     return (
@@ -34,7 +44,7 @@ export function AuthButton() {
         className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium
                    bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/[0.12]
                    hover:border-rose-400/30 hover:text-rose-200 transition-all duration-200"
-        title={`${favorites.length} favorito${favorites.length !== 1 ? 's' : ''}`}
+        title={`${favorites.length} favorito${favorites.length !== 1 ? "s" : ""}`}
       >
         <svg className="w-3.5 h-3.5 text-rose-400" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>

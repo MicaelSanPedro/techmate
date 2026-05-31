@@ -3,6 +3,7 @@
 import { Heart } from "lucide-react";
 import { useFavorites } from "@/components/FavoritesProvider";
 import { openSignInModal } from "@/components/SignInModal";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 interface FavoriteButtonProps {
@@ -12,20 +13,27 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ slug, className = "", size = "sm" }: FavoriteButtonProps) {
-  const { isFavorite, toggle, isLoggedIn } = useFavorites();
+  const { isFavorite, toggle, loading } = useFavorites();
+  const { status } = useSession();
   const [animating, setAnimating] = useState(false);
+  const [toggling, setToggling] = useState(false);
   const fav = isFavorite(slug);
+  const isLoggedIn = status === "authenticated";
 
   const handleToggle = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!isLoggedIn) {
-      openSignInModal();
+    if (!isLoggedIn || loading) {
+      if (!isLoggedIn) openSignInModal();
       return;
     }
+    setToggling(true);
     setAnimating(true);
     await toggle(slug);
-    setTimeout(() => setAnimating(false), 300);
+    setTimeout(() => {
+      setAnimating(false);
+      setToggling(false);
+    }, 300);
   };
 
   const iconSize = size === "sm" ? "w-3.5 h-3.5" : "w-5 h-5";
@@ -33,6 +41,7 @@ export function FavoriteButton({ slug, className = "", size = "sm" }: FavoriteBu
   return (
     <button
       onClick={handleToggle}
+      disabled={toggling || loading}
       className={`flex items-center justify-center transition-all duration-200 ${
         size === "sm"
           ? "w-7 h-7 sm:w-8 sm:h-8 rounded-lg"
@@ -41,7 +50,7 @@ export function FavoriteButton({ slug, className = "", size = "sm" }: FavoriteBu
         fav
           ? "bg-gradient-to-b from-rose-500/25 to-rose-600/10 border border-rose-400/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.15),0_4px_12px_-4px_rgba(244,63,94,0.3)]"
           : "bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/[0.12] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_4px_12px_-4px_rgba(0,0,0,0.4)]"
-      } hover:scale-110 active:scale-95 ${className}`}
+      } hover:scale-110 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
       title={fav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
     >
       <Heart
@@ -49,7 +58,7 @@ export function FavoriteButton({ slug, className = "", size = "sm" }: FavoriteBu
           fav
             ? "text-rose-400 fill-rose-400"
             : "text-white/60 group-hover:text-white/80"
-        } ${animating ? "scale-125" : ""}`}
+        } ${animating ? "scale-125" : ""} ${toggling ? "animate-pulse" : ""}`}
       />
     </button>
   );

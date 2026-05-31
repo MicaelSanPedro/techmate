@@ -17,7 +17,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         token.accessToken = account.access_token;
       }
       if (profile) {
-        token.login = profile.login;
+        token.login = (profile as any).login;
       }
       return token;
     },
