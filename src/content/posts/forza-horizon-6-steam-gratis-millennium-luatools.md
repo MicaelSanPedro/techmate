@@ -99,19 +99,6 @@ Depois que os gigabytes do jogo forem totalmente baixados, siga estes passos par
 
 5. Pronto! O jogo rodará liso, com acesso às DLCs e conectado à rede para você aproveitar o mapa.
 
-### Resumo dos controles
-
-| Ação | Como fazer |
-|------|------------|
-| Acelerar | W ou seta para cima |
-| Frear | S ou seta para baixo |
-| Virar esquerda | A ou seta para esquerda |
-| Virar direita | D ou seta para direita |
-| Freio de mão | Barra de espaço |
-| Câmera | V |
-| Nitro | Shift ou N |
-| Handbrake drift | Mantenha espaço + vire |
-
 > **Dica de performance:** Se o jogo estiver travando, diminua a resolução de sombras e desative o motion blur. O Forza Horizon 6 é bastante otimizado, mas em PCs mais fracos essas configurações fazem diferença.
 
 ---

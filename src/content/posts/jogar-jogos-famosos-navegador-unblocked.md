@@ -76,18 +76,6 @@ Por que esse site é tão bom? Por causa de três motivos simples:
 3. Clique no jogo e aguarde o carregamento
 4. Use os controles na tela para se mover, interagir com objetos e escapar da Granny
 
-### Controles
-
-A versão web do Granny usa controles touch/mouse adaptados para funcionar no navegador:
-
-| Ação | Como fazer |
-|------|------------|
-| Andar | WASD ou setas do teclado |
-| Olhar ao redor | Mouse |
-| Interagir com objeto | Clique esquerdo |
-| Esconder | Clique no local de escondimento |
-| Soltar item | Tecla E ou Q |
-
 ### Dicas para sobreviver
 
 - **Não faça barulho** -- a Granny ouve tudo. Ande agachado sempre que possível.
