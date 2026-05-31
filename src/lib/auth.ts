@@ -12,14 +12,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, profile }) {
       if (account) {
         token.accessToken = account.access_token;
+      }
+      if (profile) {
+        token.login = profile.login;
       }
       return token;
     },
     async session({ session, token }) {
       session.user.accessToken = token.accessToken as string;
+      session.user.login = token.login as string;
       return session;
     },
   },
