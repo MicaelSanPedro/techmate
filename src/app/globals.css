@@ -1544,8 +1544,6 @@ html:not(.dark) .liquid-glass-mobile-menu a[class*="shadow-"] {
   border-spacing: 0;
   margin: 1.5em -0.5rem;
   font-size: 0.8rem;
-  border-radius: 0.75rem;
-  background: rgba(255,255,255,0.015);
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
