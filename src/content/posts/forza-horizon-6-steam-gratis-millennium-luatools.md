@@ -4,7 +4,7 @@ date: "2026-06-01"
 excerpt: "Tutorial completo de como liberar o Forza Horizon 6 com todas as DLCs direto na sua biblioteca da Steam usando o combo Millennium + LuaTools. Download automatizado dos servidores da Valve, sem arrastar arquivos manualmente."
 category: "Dicas"
 tags: ["forza horizon 6", "steam", "millennium", "luatools", "gaming", "tutorial", "pc", "grátis"]
-coverImage: "https://quatrorodas.abril.com.br/wp-content/uploads/2026/05/FH6_Screenshots_03-Cherry-Blossoms.jpg"
+coverImage: "/posts/forza-horizon-6-steam-gratis.jpg"
 readTime: "7 min"
 featured: true
 ---
