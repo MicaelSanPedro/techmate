@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Logo } from "./Logo";
-import { Sparkles, User } from "lucide-react";
-import { getAvatar } from "@/lib/profile";
+import { Sparkles, User, Camera } from "lucide-react";
+import { getAvatar, setAvatar } from "@/lib/profile";
 
 const STORAGE_KEY = "techmate_username";
 
@@ -31,7 +31,7 @@ export function getUsername(): string | null {
 
 export function WelcomeScreen() {
   const [mounted, setMounted] = useState(false);
-  const [phase, setPhase] = useState<"enter" | "ask" | "exit">("enter");
+  const [phase, setPhase] = useState<"enter" | "ask" | "photo" | "exit">("enter");
   const [isVisible, setIsVisible] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [userName, setUserName] = useState("");
@@ -39,6 +39,9 @@ export function WelcomeScreen() {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   // Hydrate from localStorage
   useEffect(() => {
@@ -108,8 +111,34 @@ export function WelcomeScreen() {
     storeName(trimmed);
     setUserName(trimmed);
     setIsReturning(true);
-    setPhase("exit");
+    setPhase("photo");
   }, [nameInput]);
+
+  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const dataUrl = await setAvatar(file);
+      setAvatarUrl(dataUrl);
+      setPhotoPreview(dataUrl);
+    } catch {
+      /* storage full or invalid file */
+    }
+    setUploading(false);
+  }, []);
+
+  const handlePhotoClick = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  const handleSkipPhoto = useCallback(() => {
+    setPhase("exit");
+  }, []);
+
+  const handleConfirmPhoto = useCallback(() => {
+    setPhase("exit");
+  }, []);
 
   // Listen for avatar changes
   useEffect(() => {
@@ -125,6 +154,7 @@ export function WelcomeScreen() {
   const isExiting = phase === "exit";
   const showSplash = phase === "enter";
   const showAsk = phase === "ask";
+  const showPhoto = phase === "photo";
   const showProgress = phase === "enter";
 
   return (
@@ -211,6 +241,61 @@ export function WelcomeScreen() {
                 Entrar
               </button>
             </form>
+          </div>
+        )}
+
+        {/* ── Ask photo phase ── */}
+        {showPhoto && (
+          <div className="welcome-photo-section">
+            <h2 className="welcome-photo-heading">
+              <Camera className="w-5 h-5 text-amber-400 mb-1" />
+              Quer adicionar uma foto de perfil?
+            </h2>
+            <div
+              className="welcome-photo-upload-area"
+              onClick={handlePhotoClick}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handlePhotoClick(); }}
+            >
+              {photoPreview ? (
+                <div className="welcome-photo-preview">
+                  <img src={photoPreview} alt="" className="w-full h-full object-cover rounded-full" />
+                </div>
+              ) : (
+                <div className="welcome-photo-placeholder">
+                  <Camera className="w-8 h-8 text-amber-400/60" />
+                  <span className="welcome-photo-upload-hint">
+                    {uploading ? "Enviando..." : "Toque para escolher"}
+                  </span>
+                </div>
+              )}
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="hidden"
+              aria-hidden="true"
+            />
+            <div className="welcome-photo-actions">
+              <button
+                type="button"
+                onClick={handleConfirmPhoto}
+                className="welcome-photo-btn welcome-photo-btn--primary"
+                disabled={uploading}
+              >
+                {photoPreview ? "Continuar" : "Continuar sem foto"}
+              </button>
+              <button
+                type="button"
+                onClick={handleSkipPhoto}
+                className="welcome-photo-btn welcome-photo-btn--skip"
+              >
+                Ignorar por enquanto
+              </button>
+            </div>
           </div>
         )}
 
