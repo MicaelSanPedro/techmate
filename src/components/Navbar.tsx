@@ -308,17 +308,19 @@ export function Navbar({ allPosts }: NavbarProps) {
           </div>
 
           {/* Hamburger */}
-          <button
+          <div
             onClick={() => setMobileOpen(true)}
-            className="flex items-center justify-center w-8 h-8 shrink-0 ml-1 mr-0.5 border-0 bg-transparent outline-none appearance-none"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setMobileOpen(true); }}
+            className="flex items-center justify-center w-8 h-8 shrink-0 ml-1 mr-0.5 cursor-pointer select-none"
             aria-label="Abrir menu"
-            type="button"
           >
             <span className="flex flex-col gap-[4px]">
               <span className="block w-[12px] h-[1.5px] rounded-full bg-white/80" />
               <span className="block w-[12px] h-[1.5px] rounded-full bg-white/80" />
             </span>
-          </button>
+          </div>
         </div>
       </div>
 
