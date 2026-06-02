@@ -424,6 +424,8 @@ html:not(.dark) .liquid-glass-mobile-menu a[class*="shadow-"] {
     background: var(--background);
     color: var(--foreground);
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
     font-feature-settings: "ss01", "ss02", "cv01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

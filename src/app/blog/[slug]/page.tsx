@@ -94,11 +94,11 @@ export default async function PostPage({ params }: PostPageProps) {
     .slice(0, 3);
 
   return (
-    <div className="pt-24 sm:pt-28 pb-20 sm:pb-24 px-4">
+    <div className="pt-24 sm:pt-28 pb-20 sm:pb-24 px-4 overflow-x-clip">
       <ReadingProgressBar />
       <ImageZoomHandler />
       
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
+      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 overflow-x-clip">
         <article className="max-w-3xl mx-auto lg:mx-0 flex-1 min-w-0 w-full break-words">
           {/* Back link */}
           <Link
@@ -198,7 +198,7 @@ export default async function PostPage({ params }: PostPageProps) {
           />
 
           {/* Newsletter */}
-          <div className="mt-16 sm:mt-24" data-scroll-reveal>
+          <div className="mt-16 sm:mt-24 w-full overflow-hidden" data-scroll-reveal>
             <Newsletter />
           </div>
 

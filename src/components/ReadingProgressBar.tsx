@@ -12,10 +12,10 @@ export function ReadingProgressBar() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-amber-500 origin-left z-[100]"
+      className="fixed top-[56px] left-0 right-0 h-[3px] bg-amber-500 origin-left z-[100] sm:top-16 lg:top-[72px] sm:h-1"
       style={{
         scaleX,
-        boxShadow: "0 0 8px rgba(245, 158, 11, 0.5)"
+        boxShadow: "0 2px 10px rgba(245, 158, 11, 0.4)"
       }}
     />
   );
