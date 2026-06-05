@@ -279,6 +279,20 @@ export function Navbar({ allPosts }: NavbarProps) {
               <SearchBar allPosts={allPosts} />
 
               <Link
+                href="/settings"
+                className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl
+                           backdrop-blur-[40px] saturate-[180%] brightness-[105%]
+                           bg-gradient-to-b from-white/[0.08] to-white/[0.02]
+                           border border-white/[0.14]
+                           shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_4px_16px_-4px_rgba(0,0,0,0.3)]
+                           text-white/40 hover:text-white/70 hover:border-white/[0.22]
+                           active:scale-95 transition-all duration-200"
+                title="Configurações"
+              >
+                <Settings className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
+              </Link>
+
+              <Link
                 href="/blog"
                 className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full
                            bg-gradient-to-b from-amber-400/90 to-amber-500
@@ -489,3 +503,4 @@ export function Navbar({ allPosts }: NavbarProps) {
     </>
   );
 }
+
