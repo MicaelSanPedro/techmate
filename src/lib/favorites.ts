@@ -1,3 +1,5 @@
+import { getFavoritesFromDB, saveFavoritesToDB } from "./db";
+
 const GIST_FILENAME = "techmate-favorites.json";
 const GIST_DESCRIPTION = "TechMate Blog Favorites";
 
@@ -17,9 +19,7 @@ interface GistListItem {
 }
 
 /**
- * Find our TechMate gist ID from the list API,
- * then fetch it individually to get file content
- * (the list API does NOT return file content).
+ * Find our TechMate gist ID from the list API.
  */
 async function findGistId(accessToken: string): Promise<string | null> {
   const res = await fetch("https://api.github.com/gists?per_page=100", {
@@ -115,31 +115,48 @@ async function updateGist(accessToken: string, gistId: string, data: FavoritesDa
   }
 }
 
-export async function getFavorites(accessToken: string): Promise<string[]> {
-  const gist = await getGist(accessToken);
-  return gist ? gist.data.favorites : [];
+// ─── UNIFIED FAVORITES SYSTEM ───
+
+export async function getFavorites(user: { provider?: string; accessToken?: string; email?: string }): Promise<string[]> {
+  if (user.provider === "github" && user.accessToken) {
+    const gist = await getGist(user.accessToken);
+    return gist ? gist.data.favorites : [];
+  } 
+  
+  if (user.provider === "google" && user.email) {
+    return await getFavoritesFromDB(user.email);
+  }
+
+  return [];
 }
 
-export async function toggleFavorite(accessToken: string, slug: string): Promise<boolean> {
-  const gist = await getGist(accessToken);
-  const favorites: string[] = gist ? gist.data.favorites : [];
+export async function toggleFavorite(user: { provider?: string; accessToken?: string; email?: string }, slug: string): Promise<boolean> {
+  const favorites = await getFavorites(user);
   const index = favorites.indexOf(slug);
+  
   if (index > -1) {
     favorites.splice(index, 1);
   } else {
     favorites.push(slug);
   }
-  const data: FavoritesData = { favorites };
-  let success = false;
-  if (gist) {
-    success = await updateGist(accessToken, gist.id, data);
-  } else {
-    const newId = await createGist(accessToken, data);
-    success = !!newId;
+
+  const isFavorite = index === -1;
+
+  if (user.provider === "github" && user.accessToken) {
+    const gist = await getGist(user.accessToken);
+    const data = { favorites };
+    if (gist) {
+      await updateGist(user.accessToken, gist.id, data);
+    } else {
+      await createGist(user.accessToken, data);
+    }
+    return isFavorite;
   }
-  if (!success) {
-    console.error("[toggleFavorite] Failed to save favorites to Gist");
-    return index > -1;
+
+  if (user.provider === "google" && user.email) {
+    await saveFavoritesToDB(user.email, favorites);
+    return isFavorite;
   }
-  return index === -1;
+
+  return isFavorite;
 }
