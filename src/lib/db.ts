@@ -1,23 +1,27 @@
+import { kv } from "@vercel/kv";
+
 /**
- * Esta é a estrutura base para o Banco de Dados.
- * Deixaremos a implementação real para o final, conforme solicitado.
+ * Persistência real usando Vercel KV (Redis).
+ * Chave: user:favorites:{email}
+ * Valor: Array de strings (slugs)
  */
 
-export interface UserFavorite {
-  userEmail: string;
-  slugs: string[];
-}
-
-// Mock ou Placeholder para as operações de banco
-// No futuro, isso usará Prisma, MongoDB ou Supabase.
 export async function getFavoritesFromDB(email: string): Promise<string[]> {
-  console.log(`[DB] Buscando favoritos para o e-mail: ${email}`);
-  // TODO: Implementar conexão real
-  return []; 
+  try {
+    const favorites = await kv.get<string[]>(`user:favorites:${email}`);
+    return favorites || [];
+  } catch (error) {
+    console.error("[KV] Erro ao buscar favoritos:", error);
+    return [];
+  }
 }
 
 export async function saveFavoritesToDB(email: string, slugs: string[]): Promise<boolean> {
-  console.log(`[DB] Salvando favoritos para o e-mail: ${email}`, slugs);
-  // TODO: Implementar conexão real
-  return true;
+  try {
+    await kv.set(`user:favorites:${email}`, slugs);
+    return true;
+  } catch (error) {
+    console.error("[KV] Erro ao salvar favoritos:", error);
+    return false;
+  }
 }
