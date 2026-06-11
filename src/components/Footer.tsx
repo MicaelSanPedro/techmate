@@ -15,7 +15,8 @@ const quickLinks = [
   { label: "Início", href: "/" },
   { label: "Blog", href: "/blog" },
   { label: "Sobre", href: "/#sobre" },
-  { label: "GitHub", href: "https://github.com/MicaelSanPedro/linuxzeiro" },
+  { label: "RSS Feed", href: "/rss.xml" },
+  { label: "GitHub", href: "https://github.com/MicaelSanPedro/techmate" },
 ];
 
 const socialLinks = [
