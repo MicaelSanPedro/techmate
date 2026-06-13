@@ -51,10 +51,10 @@ export function Footer() {
       </div>
 
       {/* Giant brand watermark */}
-      <div className="absolute bottom-0 left-0 right-0 translate-y-1/3 pointer-events-none select-none whitespace-nowrap overflow-hidden">
-        <div className="text-center">
-          <span className="text-[22vw] sm:text-[16vw] lg:text-[10rem] font-extrabold leading-none tracking-tighter
-                           bg-gradient-to-b from-white/[0.04] to-transparent bg-clip-text text-transparent inline-block">
+      <div className="absolute bottom-0 left-0 right-0 translate-y-1/4 pointer-events-none select-none whitespace-nowrap overflow-hidden">
+        <div className="text-center px-4">
+          <span className="text-[18vw] sm:text-[16vw] lg:text-[10rem] font-extrabold leading-none tracking-tighter
+                           bg-gradient-to-b from-white/[0.03] to-transparent bg-clip-text text-transparent inline-block">
             TECHMATE
           </span>
         </div>

@@ -312,8 +312,9 @@ export function Navbar({ allPosts }: NavbarProps) {
       </nav>
 
       {/* ── Mobile Floating Search + Hamburger ── */}
-      <div className="md:hidden fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <div className={`mobile-search-bar pointer-events-auto flex items-center ${mobileSearchActive ? 'expanded' : ''}`}>
+      <div className="md:hidden fixed bottom-6 left-0 right-0 z-[60] flex justify-center px-4 pointer-events-none">
+        <div className={`mobile-search-bar pointer-events-auto flex items-center ${mobileSearchActive ? 'expanded' : ''}
+                        backdrop-blur-xl shadow-2xl border border-white/10`}>
           {/* Search area */}
           <div className="mobile-search-input-wrap flex items-center gap-1.5 py-2.5 pl-2.5 pr-0 min-w-0">
             <SearchIcon className="w-3.5 h-3.5 text-white/50 shrink-0" />
