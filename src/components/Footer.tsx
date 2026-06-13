@@ -15,6 +15,8 @@ const quickLinks = [
   { label: "Início", href: "/" },
   { label: "Blog", href: "/blog" },
   { label: "Sobre", href: "/#sobre" },
+  { label: "Termos", href: "/termos" },
+  { label: "Privacidade", href: "/privacidade" },
   { label: "RSS Feed", href: "/rss.xml" },
   { label: "GitHub", href: "https://github.com/MicaelSanPedro/techmate" },
 ];
